@@ -1,0 +1,301 @@
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc linpack.c -o linpack
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:22:07 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.109375   0.015625   3.125000  213.973333   0.009347  55.803571
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:22:11 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc linpack.c -o linpack -O0
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:22:32 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.234375   0.015625   3.250000  205.743590   0.009721  58.035714
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:22:35 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc linpack.c -o linpack -O1
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:22:48 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   0.828125   0.000000   0.828125  807.446541   0.002477  14.787946
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:22:49 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc linpack.c -o linpack -O2
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:23:00 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   0.812500   0.015625   0.828125  807.446541   0.002477  14.787946
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:23:01 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc linpack.c -o linpack -O3
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:23:08 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   0.765625   0.000000   0.765625  873.360544   0.002290  13.671875
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:23:09 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$
+
+
+
+
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:32:26 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   0.781250   0.000000   0.781250  855.893333   0.002337  13.950893
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:32:27 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ clear
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc linpack.c -o linpack
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:32:34 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.203125   0.015625   3.218750  207.741100   0.009627  57.477679
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:32:37 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:32:40 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.171875   0.015625   3.187500  209.777778   0.009534  56.919643
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:32:43 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:32:44 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.156250   0.000000   3.156250  211.854785   0.009440  56.361607
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:32:48 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:32:49 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.203125   0.000000   3.203125  208.754472   0.009581  57.198661
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:32:52 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:32:53 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.125000   0.015625   3.140625  212.908789   0.009394  56.082589
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:32:57 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./linpack
+06 September 2018 02:32:59 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision real
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.171875   0.015625   3.187500  209.777778   0.009534  56.919643
+
+LINPACK_BENCH
+  Normal end of execution.
+
+06 September 2018 02:33:03 PM
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$
