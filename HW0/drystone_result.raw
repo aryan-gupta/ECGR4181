@@ -1,0 +1,108 @@
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc drystone.c -o drystone 2> /dev/null
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 1000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 1500000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 1500000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 1500000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 1500000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc drystone.c -o drystone -O0 2> /dev/null
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 1000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 1500000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 2000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc drystone.c -o drystone -O1 2> /dev/null
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc drystone.c -o drystone -O2 2> /dev/null
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+Floating point exception (core dumped)
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ gcc drystone.c -o drystone -O3 2> /dev/null
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+Floating point exception (core dumped)
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+Floating point exception (core dumped)
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+Floating point exception (core dumped)
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$ ./drystone
+Dhrystone time for 100000 passes = 0
+This machine benchmarks at 6000000 dhrystones/second
+aryan@photon:/mnt/c/Users/Aryan/Projects/ECGR4181/HW0$
