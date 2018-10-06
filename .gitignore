@@ -30,6 +30,10 @@
 *.exe
 *.out
 *.app
+*.bin
+
+# Data files
+*.dat
 
 HW1/d4-7/
-HW/d4-7.tar.gz
+
