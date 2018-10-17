@@ -17,9 +17,12 @@ enum class Ops {
 	FETCH
 };
 
+using ptr_t = uint32_t;
+using access_type = std::vector<std::pair<Ops, ptr_t>>;
+
 int main(int argn, char** args);
 
-std::vector<std::pair<Ops, uint64_t>> load_file(static_string_t filename);
+access_type load_file(static_string_t filename);
 
 std::ostream& operator<< (std::ostream& out, Ops& op);
 std::istream& operator>> (std::istream& in,  Ops& op);
