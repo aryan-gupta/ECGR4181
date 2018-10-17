@@ -69,7 +69,7 @@ private:
 public:
 	// Ill let the compiler do the aggrigate inits and ctors/dtors
 	reference at(size_type idx) {
-		// return true;
+		return { *mData, 0 };
 	}
 
 };

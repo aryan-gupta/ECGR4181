@@ -19,5 +19,5 @@ void DinReader::nextBuffer() {
 }
 
 std::pair<Ops, uint64_t> DinReader::getLine() {
-	return { ARGUMENT, 0 };
+	return {  };
 }
