@@ -1,5 +1,6 @@
 # Prerequisites
 *.d
+*.Td
 
 # Compiled Object files
 *.slo
@@ -36,4 +37,3 @@
 *.dat
 
 HW1/d4-7/
-
