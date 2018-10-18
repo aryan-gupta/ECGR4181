@@ -8,6 +8,7 @@
 #include "main.hpp"
 #include "parse.hpp"
 #include "Simulator.hpp"
+#include "printer.hpp"
 
 bool gUseSTDIN = false;
 
@@ -31,14 +32,7 @@ int main(int argn, char** args) {
 		std::cout << p.first << "  " << p.second << std::endl;
 	}
 
-	/// from ping(8):
-	// For every ECHO_REQUEST sent a period “.” is printed, while for ever ECHO_REPLY received a backspace is
-	// printed. This provides a rapid display of how many packets are being dropped.
-	// Also just realized they misspelled every
-	// I fell like there will be a point where the period is spammed so I may represent = by 10 periods? idk
-	std::cout << "File and parameters successfully loaded." "\n"
-	             "For every memory access a period \".\" is printed, while for every memory hit a backspace is"
-	             "printed, this provides a rapid display of how many cache misses there are" "\n";
+	printer::intro();
 
 	Simulator sim = Simulator{ std::move(opfile), dat };
 	sim.doSim();
@@ -52,6 +46,8 @@ int main(int argn, char** args) {
 	// std::cout << dat.use_stdin << std::endl;
 	// std::cout << dat.replace_policy << std::endl;
 	// std::cout << (int)dat.associativity << std::endl;
+	std::cout << std::endl; // flush buffer and ouput new line
+	return 0;
 }
 
 access_type load_file(static_string_t filename) {
