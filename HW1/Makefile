@@ -27,6 +27,11 @@ DEP = dep
 
 #==============================  MACROS  ======================================
 
+GCC_MAJOR = $(shell $(CC) -v 2>&1 | grep " version " | cut -d' ' -f3  | cut -d'.' -f1)
+GCC_MINOR = $(shell $(CC) -v 2>&1 | grep " version " | cut -d' ' -f3  | cut -d'.' -f2)
+
+GCC_MIN = 5
+
 # Final executable
 EXE = $(BIN)/$(PRGM).$(EXT)
 
@@ -40,7 +45,7 @@ ILIBS = $(BOOST_INC)
 LLIBS = $(BOOST_LNK)
 
 # Compile/Link flags
-CFLAGS = $(DEBUG) $(ILIBS) -Wall -std=c++17 -c
+CFLAGS = $(DEBUG) $(ILIBS) -Wall -std=c++14 -c
 LFLAGS = $(DEBUG) $(LLIBS) -Wall -lstdc++fs
 
 # Dependency flags
@@ -66,12 +71,14 @@ run:
 # Clean and recompile for production
 .PHONY: all
 all: clean build
+	@echo Rebuilt from scratch at $(EXE)
 
 # Clean directories
 .PHONY: clean
 clean:
-	-rm -f $(BIN)/*
-	-rm -f $(DEP)/*
+	@echo Cleaning temp files
+	-@rm -f $(BIN)/*
+	-@rm -f $(DEP)/*
 
 #============================ RECEPIES ========================================
 
@@ -89,6 +96,14 @@ $(EXE): $(OBJS)
 # Dependencies
 .PRECIOUS = $(DEP)/%.d
 $(DEP)/%.d: ;
+
+ifeq ($(shell expr $(GCC_MAJOR) \< $(GCC_MIN)), 1)
+	$(error GCC is version $(GCC_MAJOR), code in this repo needs version $(GCC_MIN). \
+	        Please check `$(CC) --version` for version information. \
+	        If you think this is a mistake, please use `make all GCC_MIN=$(GCC_MAJOR)` to rebuild the targets \
+	        but be warned, there may be compile errors. There are prebuilt binaries for linux in the bin/ \
+	        directory)
+endif
 
 # Include Dependencies
 -include $(DEPS)
