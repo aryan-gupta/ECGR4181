@@ -2,6 +2,7 @@
 #pragma once
 
 #include <cmath>
+#include <limits>
 
 #include "main.hpp"
 
@@ -28,24 +29,43 @@
 // The index tells us where the memory location would be in the cache, the tag
 // is used to verify that we have a cache hit/miss and the offset tells us
 // where in the cache block the byte is
+
+// @todo make this into seperate arrays, because the valid flag can be compressed
+struct cache_info {
+	bool valid = false;
+	ptr_t tag;
+};
+
+// These variables must be set because we cant use a packed bitfield
+// a bitfield is a compiler-time derivative but our sizes are all runtime
+struct addr_info {
+	size_t Tag_Offset;
+	size_t Index_Mask;
+	size_t Index_Offset;
+	size_t Offset_Mask;
+};
+
+#if __cpp_constexpr >= 201603
+constexpr
+#else
+inline
+#endif
+auto get_info(ParseData pd) -> addr_info {
+	size_t block_bits = std::log2(pd.block_size);
+	size_t index_bits = std::log2(pd.cache_size / pd.block_size);
+
+	constexpr int MAX_BIT = sizeof(ptr_t) * 8;
+	constexpr ptr_t F_MASK = std::numeric_limits<ptr_t>::max(); // creates 0xFFF...
+	addr_info ret{};
+	ret.Offset_Mask = F_MASK >> (MAX_BIT - block_bits);
+	ret.Index_Mask = F_MASK >> (MAX_BIT - index_bits - block_bits);
+	ret.Index_Offset = block_bits;
+	ret.Tag_Offset = index_bits + block_bits;
+	return ret;
+}
+
+
 class Simulator {
-	// @todo make this into seperate arrays, because the valid flag can be compressed
-	struct cache_info {
-		bool valid = false;
-		ptr_t tag;
-	};
-
-	// These variables must be set because we cant use a packed bitfield
-	// a bitfield is a compiler-time derivative but our sizes are all runtime
-	struct addr_info {
-		size_t Tag_Offset;
-		size_t Index_Mask;
-		size_t Index_Offset;
-		size_t Offset_Mask;
-	};
-
-	constexpr static addr_info get_info(ParseData pd);
-
 	// Please note that using a unordered_map would reduce usage of memory alot
 	// but would take off the spirit of the assignment
 	const addr_info mAddrInfo;
@@ -69,17 +89,3 @@ public:
 	void doSim();
 
 };
-
-constexpr auto Simulator::get_info(ParseData pd) -> addr_info {
-	size_t block_bits = std::log2(pd.block_size);
-	size_t index_bits = std::log2(pd.cache_size / pd.block_size);
-
-	constexpr int MAX_BIT = sizeof(ptr_t) * 8;
-	constexpr ptr_t F_MASK = std::numeric_limits<ptr_t>::max(); // creates 0xFFF...
-	addr_info ret{};
-	ret.Offset_Mask = F_MASK >> (MAX_BIT - block_bits);
-	ret.Index_Mask = F_MASK >> (MAX_BIT - index_bits - block_bits);
-	ret.Index_Offset = block_bits;
-	ret.Tag_Offset = index_bits + block_bits;
-	return ret;
-}

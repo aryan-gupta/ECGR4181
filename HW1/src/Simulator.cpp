@@ -2,6 +2,7 @@
 #include <cmath>
 
 #include "Simulator.hpp"
+#include "printer.hpp"
 
 ptr_t Simulator::getTag(ptr_t ptr) {
 	return ptr >> mAddrInfo.Tag_Offset;
@@ -36,15 +37,20 @@ void Simulator::doSim() {
 	for (auto& _p : mIns) {
 		auto op = _p.first; auto addr = _p.second;
 #endif
+		if (op == Ops::FETCH) // skip fetches for now
+			continue;
+
 		ptr_t index = getIndex(addr);
 		ptr_t tag   = getTag(addr);
 
 		++mAccess;
+		printer::dot();
 
 		cache_info* loc = mCache + index;
 		if (loc->valid and loc->tag == tag) {
 			// We had a cache hit
 			++mHits;
+			printer::bksp();
 		} else {
 			// default replacement policy
 			loc->valid = true;
