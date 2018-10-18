@@ -146,7 +146,12 @@ ParseData parse(const_cstr_array_t args, int argn) {
 }
 
 void print_help(std::ostream& out) {
+#if __cpp_structured_bindings
 	for (auto [key, value] : arg_map) {
+#else
+	for (auto& _p : arg_map) {
+		auto key = _p.first; auto value = _p.second;
+#endif
 		if (key[1] == '-') { // found long option
 			out << key;
 			out << " (" << value.alt_op << ')';
