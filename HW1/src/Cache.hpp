@@ -1,3 +1,8 @@
+/*
+ * This class represents a cache, this should allow modularity for
+ * multiple caches (like L1, L3, etc)
+ */
+
 
 #pragma once
 
@@ -47,8 +52,6 @@ struct addr_info {
 	size_t Offset_Mask;
 };
 
-
-
 #if __cpp_constexpr >= 201603
 constexpr
 #else
@@ -68,7 +71,6 @@ auto get_info(ParseData pd) -> addr_info {
 	ret.Tag_Offset = index_bits + block_bits;
 	return ret;
 }
-
 
 void always_replace_policy(cache_info* cache, ptr_t idx, ptr_t tag);
 

@@ -1,3 +1,10 @@
+/*
+ * This file (and parse.cpp) manages all the logic behind the parsing of command
+ * line arguments. It started out very simple but then grew to this monstrcity.
+ * More details are in the parse.cpp. But Trying to understand how it all works
+ * will be a challenge. Make sure you are very well versed in functional pointers
+ */
+
 #pragma once
 
 #include <string>
