@@ -29,7 +29,7 @@
 /// 3) The member of ParseData the option sets
 /// 4) The modifier function that converts the cstring to the member type (see member 3)
 /// 5) The alternative option (short or long option)
-static const std::unordered_map<static_string_t, Option> arg_map {
+const std::unordered_map<static_string_t, Option> arg_map {
 	{ "--cache-size", { ARGUMENT, get_setter(&ParseData::cache_size, std::atol), "-c"           } },
 	{           "-c", { ARGUMENT, get_setter(&ParseData::cache_size, std::atol), "--cache-size" } },
 
@@ -58,9 +58,11 @@ ParseData parse(const_cstr_array_t args, int argn) {
 		.use_stdin = false
 	};
 
-	for (int i = 0; i < argn; ++i) {
+	for (int i = 1; i < argn; ++i) {
 		static_string_t str = args[i];
 		auto short_arg_loc = arg_map.find( static_string_t{ str.data(), 2 } );
+
+		if (str[0] != '-') continue; // skip the prgm name if there is
 
 		if (str[0] == '-' and str[1] == '-' and str[2] == '\0') break;
 
@@ -140,24 +142,11 @@ ParseData parse(const_cstr_array_t args, int argn) {
 
 			} while (++loc < str.length());
 		}
+
+		else {
+			throw bad_prgm_argument{ concact("[E] Bad argument: ", str) };
+		}
 	}
 
 	return ret;
-}
-
-void print_help(std::ostream& out) {
-#if __cpp_structured_bindings
-	for (auto [key, value] : arg_map) {
-#else
-	for (auto& _p : arg_map) {
-		auto key = _p.first; auto value = _p.second;
-#endif
-		if (key[1] == '-') { // found long option
-			out << key;
-			out << " (" << value.alt_op << ')';
-			if (value.type == ARGUMENT)
-				out << "  <value>";
-			out << std::endl;
-		}
-	}
 }

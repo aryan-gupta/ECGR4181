@@ -44,4 +44,21 @@ struct printer {
 		          << "Ratio: " << d << '\n';
 	}
 
+	static inline void help() {
+#if __cpp_structured_bindings
+		for (auto [key, value] : arg_map) {
+#else
+		for (auto& _p : arg_map) {
+			auto key = _p.first; auto value = _p.second;
+#endif
+			if (key[1] == '-') { // found long option
+				std::cout << key;
+				std::cout << " (" << value.alt_op << ')';
+				if (value.type == ARGUMENT)
+					std::cout << "  <value>";
+				std::cout << std::endl;
+			}
+		}
+	}
+
 };
