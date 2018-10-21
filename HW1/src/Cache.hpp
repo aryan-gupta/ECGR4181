@@ -52,6 +52,7 @@ struct addr_info {
 #if __cpp_constexpr >= 201603
 constexpr
 #else
+#warning "c++17 `__cpp_constexpr' not fully supported, falling back to inline/runtime impl"
 inline
 #endif
 auto get_info(ParseData pd) -> addr_info {

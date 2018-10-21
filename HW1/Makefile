@@ -44,8 +44,10 @@ DEPS = $(patsubst %, $(DEP)/%.d, $(basename $(notdir $(SRCS))))
 ILIBS = $(BOOST_INC)
 LLIBS = $(BOOST_LNK)
 
+CPP_VER = -std=c++17
+
 # Compile/Link flags
-CFLAGS = $(DEBUG) $(ILIBS) -Wall -std=c++14 -c
+CFLAGS = $(DEBUG) $(ILIBS) -Wall $(CPP_VER) -c
 LFLAGS = $(DEBUG) $(LLIBS) -Wall -lstdc++fs
 
 # Dependency flags

@@ -8,11 +8,11 @@
 
 struct printer {
 	static inline void dot() {
-		std::cout << ".";
+		//std::cout << ".";
 	}
 
 	static inline void bksp() {
-		std::cout << "\b \b";
+		//std::cout << "\b \b";
 	}
 
 	static inline void intro(const ParseData& pd) {
@@ -37,7 +37,11 @@ struct printer {
 		std::cout << std::endl << std::endl; // flush buffer and ouput new line
 		std::cout << "================ Results ================\n";
 		auto ratio = sim.getRatio();
-		std::cout << "Hits: " << ratio.first << "Total: " << ratio.second << '\n';
+		double d = ratio.first / (double)ratio.second;
+		std::cout << "Hits: " << ratio.first << " "
+		          << "Misses: " << (ratio.second - ratio.first) << " "
+		          << "Total: " << ratio.second << " "
+		          << "Ratio: " << d << '\n';
 	}
 
 };
