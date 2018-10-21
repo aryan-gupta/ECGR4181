@@ -87,6 +87,7 @@ constexpr parse_setter_t get_setter(T ParseData::* member, F func) {
 	};
 }
 
+extern const std::unordered_map<static_string_t, Option> arg_map;
+
 using const_cstr_array_t = char const* const* const; // const pointer to a const pointer (array) to const char
 ParseData parse(const_cstr_array_t args, int argn);
-void print_help(std::ostream& out);

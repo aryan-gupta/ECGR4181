@@ -18,13 +18,9 @@ int main(int argn, char** args) {
 		dat = parse(args, argn);
 	} catch (bad_prgm_argument& e) {
 		std::cout << e.what() << std::endl;
-		print_help(std::cout);
+		printer::help();
 		return -1;
 	}
-
-	dat.associativity = 1;
-	dat.cache_size = 32768;
-	dat.block_size = 128;
 
 	access_type opfile = load_file(dat.file);
 
@@ -34,7 +30,6 @@ int main(int argn, char** args) {
 	sim.doSim();
 
 	printer::result(sim);
-
 	return 0;
 }
 
