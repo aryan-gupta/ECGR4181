@@ -10,6 +10,7 @@
 	#include <string_view>
 	using static_string_t = std::string_view;
 #else
+	#warning "`__cpp_lib_string_view' not supported, falling back to `std::string'"
 	using static_string_t = std::string;
 #endif
 
@@ -23,6 +24,7 @@ std::string concact(R... a) {
 }
 
 #else
+#warning "`__cpp_fold_expressions' not supported, falling back to recursive vardiac template functions"
 
 template <typename T1, typename T2>
 std::string concact(T1 a, T2 b) {

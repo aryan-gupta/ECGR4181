@@ -23,14 +23,10 @@ int main(int argn, char** args) {
 	}
 
 	dat.associativity = 1;
-	dat.cache_size = 128;
-	dat.block_size = 4;
+	dat.cache_size = 32768;
+	dat.block_size = 128;
 
 	access_type opfile = load_file(dat.file);
-
-	for (auto& p : opfile) {
-		std::cout << p.first << "  " << p.second << std::endl;
-	}
 
 	printer::intro(dat);
 
