@@ -4,30 +4,21 @@
 #include "Simulator.hpp"
 #include "printer.hpp"
 
-ptr_t Simulator::getTag(ptr_t ptr) {
-	return ptr >> mAddrInfo.Tag_Offset;
-}
 
-ptr_t Simulator::getIndex(ptr_t ptr) {
-	ptr &= mAddrInfo.Index_Mask; // remove high bits
-	return ptr >> mAddrInfo.Index_Offset;
-}
-
-ptr_t Simulator::getOffset(ptr_t ptr) {
-	return ptr & mAddrInfo.Offset_Mask;
-}
-
-Simulator::Simulator(std::vector<std::pair<Ops, ptr_t>>&& access, const ParseData& pd)
-	: mAddrInfo{ get_info(pd) }, mCache{ nullptr }, mIns{ access }
+Simulator::Simulator(access_type&& access, const ParseData& pd)
+	: mDataCache{  }, mInsCache{  }, mIns{ access }
 {
-	// The size of mCache must be size of the index bits, or
-	// (actual cache size) / (cache block size)
-	size_t iCacheSize = pd.cache_size / pd.block_size;
-	mCache = new cache_info[iCacheSize];
+	mDataCache = new Cache{ pd };
+	mInsCache = mDataCache; // for now
 }
 
 Simulator::~Simulator() {
-	delete[] mCache;
+	if (mDataCache == mInsCache) {
+		delete mDataCache;
+	} else {
+		delete mInsCache;
+		delete mDataCache;
+	}
 }
 
 void Simulator::doSim() {
@@ -37,24 +28,14 @@ void Simulator::doSim() {
 	for (auto& _p : mIns) {
 		auto op = _p.first; auto addr = _p.second;
 #endif
-		if (op == Ops::FETCH) // skip fetches for now
-			continue;
-
-		ptr_t index = getIndex(addr);
-		ptr_t tag   = getTag(addr);
-
-		++mAccess;
-		printer::dot();
-
-		cache_info* loc = mCache + index;
-		if (loc->valid and loc->tag == tag) {
-			// We had a cache hit
-			++mHits;
-			printer::bksp();
-		} else {
-			// default replacement policy
-			loc->valid = true;
-			loc->tag = tag;
+		switch(op) {
+			case Ops::FETCH: mInsCache->fetch(addr); break;
+			case Ops::READ : mDataCache->read(addr); break;
+			case Ops::WRITE: mDataCache->write(addr); break;
 		}
 	}
+}
+
+ratio_t<int> Simulator::getRatio() const {
+	return { mDataCache->getHits(), mDataCache->getAccess() };
 }

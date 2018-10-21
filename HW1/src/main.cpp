@@ -32,21 +32,13 @@ int main(int argn, char** args) {
 		std::cout << p.first << "  " << p.second << std::endl;
 	}
 
-	printer::intro();
+	printer::intro(dat);
 
 	Simulator sim = Simulator{ std::move(opfile), dat };
 	sim.doSim();
 
-	// for (auto& p : opfile) {
-	// 	std::cout << p.first << "  " << p.second << std::endl;
-	// }
+	printer::result(sim);
 
-	// std::cout << dat.cache_size << std::endl;
-	// std::cout << dat.block_size << std::endl;
-	// std::cout << dat.use_stdin << std::endl;
-	// std::cout << dat.replace_policy << std::endl;
-	// std::cout << (int)dat.associativity << std::endl;
-	std::cout << std::endl; // flush buffer and ouput new line
 	return 0;
 }
 
