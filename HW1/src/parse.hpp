@@ -94,6 +94,8 @@ constexpr parse_setter_t get_setter(T ParseData::* member, F func) {
 	};
 }
 
+unsigned long strb2pf2ul(static_string_t str);
+
 extern const std::unordered_map<static_string_t, Option> arg_map;
 
 using const_cstr_array_t = char const* const* const; // const pointer to a const pointer (array) to const char

@@ -1,6 +1,7 @@
 
 #include <unordered_map>
 #include <cstring>
+#include <cctype>
 #include <functional>
 #include <string>
 #include <ostream>
@@ -30,23 +31,114 @@
 /// 4) The modifier function that converts the cstring to the member type (see member 3)
 /// 5) The alternative option (short or long option)
 const std::unordered_map<static_string_t, Option> arg_map {
-	{ "--cache-size", { ARGUMENT, get_setter(&ParseData::cache_size, std::atol), "-c"           } },
-	{           "-c", { ARGUMENT, get_setter(&ParseData::cache_size, std::atol), "--cache-size" } },
+	{ "--cache-size",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::cache_size, strb2pf2ul),
+			"-c"
+		}
+	},
+	{ "-c",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::cache_size, strb2pf2ul),
+			"--cache-size"
+		}
+	},
 
-	{ "--block-size", { ARGUMENT, get_setter(&ParseData::block_size, std::atol), "-b"           } },
-	{           "-b", { ARGUMENT, get_setter(&ParseData::block_size, std::atol), "--block-size" } },
+	{ "--block-size",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::block_size, strb2pf2ul),
+			"-b"
+		}
+	},
+	{ "-b",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::block_size, strb2pf2ul),
+			"--block-size"
+		}
+	},
 
-	{ "--replace-policy", { ARGUMENT, get_setter(&ParseData::replace_policy, [](const char* str){ return str; }), "-r"               } },
-	{               "-r", { ARGUMENT, get_setter(&ParseData::replace_policy, [](const char* str){ return str; }), "--replace-policy" } },
+	{ "--replace-policy",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::replace_policy, [](const char* str){ return str; }),
+			"-r"
+		}
+	},
+	{ "-r",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::replace_policy, [](const char* str){ return str; }),
+			"--replace-policy"
+		}
+	},
 
-	{ "--associativity", { ARGUMENT, get_setter(&ParseData::associativity, std::atol), "-a"              } },
-	{              "-a", { ARGUMENT, get_setter(&ParseData::associativity, std::atol), "--associativity" } },
+	{
+		"--associativity",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::associativity, std::atol),
+			"-a"
+		}
+	},
+	{ "-a",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::associativity, std::atol),
+			"--associativity"
+		}
+	},
 
-	{ "--file", { ARGUMENT, get_setter(&ParseData::file, [](const char* str){ return str; }), "-f"     } },
-	{     "-f", { ARGUMENT, get_setter(&ParseData::file, [](const char* str){ return str; }), "--file" } },
+	{ "--file",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::file, [](const char* str){ return str; }),
+			"-f"
+		}
+	},
+	{ "-f",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::file, [](const char* str){ return str; }),
+			"--file"
+		}
+	},
 
-	{ "-", { SWITCH, get_setter(&ParseData::use_stdin, [](const char* str){ return true; }), "-" } },
+	{ "-",
+		{
+			SWITCH,
+			get_setter(&ParseData::use_stdin, [](const char* str){ return true; }),
+			"-"
+		}
+	},
 };
+
+unsigned long strb2pf2ul(static_string_t str) {
+	unsigned long base = std::atol(str.data());
+	unsigned long mul = 1;
+
+	char lastChar = str[str.size() - 1];
+	if (!std::isdigit(lastChar)) {
+		switch (std::tolower(lastChar)) {
+			case 'k': mul = 1024UL; break;
+			case 'm': mul = 1024UL * 1024; break;
+			case 'g': mul = 1024UL * 1024 * 1024; break;
+			// case 't': mul = 1024UL * 1024 * 1024 * 1024; break;
+			// case 'p': mul = 1024UL * 1024 * 1024 * 1024 * 1024; break; // yep petabyte of cache
+			// case 'e': mul = 1024UL * 1024 * 1024 * 1024 * 1024 * 1024; break; // I dont even know at this point
+			default: {
+				char msg[] = "[E] Bad argument postfix: ?";
+				msg[26] = lastChar;
+				throw bad_prgm_argument{ std::string{ msg } };
+			}
+		}
+	}
+
+	return base * mul;
+}
 
 ParseData parse(const_cstr_array_t args, int argn) {
 	ParseData ret{
