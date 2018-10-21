@@ -1,4 +1,8 @@
-
+/*
+ * This class was soly made so I could move all the std::cout << .... to a seperate file
+ * so the other files are cluttered with multiple lines of std::cout's. The functions are
+ * pretty self explanitory, and/or are easy to read so this file will not have any docs
+ */
 #pragma once
 
 #include <iostream>

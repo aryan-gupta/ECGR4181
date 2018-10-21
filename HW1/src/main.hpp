@@ -1,3 +1,7 @@
+/*
+ * The starting point of the program and other functions that dont fit in
+ * at other places
+ */
 
 #pragma once
 
