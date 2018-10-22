@@ -29,7 +29,7 @@ public:
 	~Simulator();
 
 	/// Does the actual simulation
-	void doSim();
+	void simulate();
 
 	/// Gets the Hit ratio for the current simulation. Returns { 0, 0 } if the simulation
 	/// hasnt been run.
