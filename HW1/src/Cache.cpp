@@ -1,4 +1,5 @@
 
+#include <iostream>
 
 #include "main.hpp"
 #include "Cache.hpp"
@@ -25,7 +26,10 @@ Cache::Cache(const ParseData& pd)
 	size_t iCacheSize = pd.cache_size / pd.block_size;
 	mCache = new cache_info[iCacheSize];
 
-	mRPolicy = always_replace_policy;
+	size_t associativeSize = iCacheSize / pd.associativity;
+
+	mReplace = get_replace_func(pd.associativity, associativeSize);
+	mLocate = get_locate_func(pd.associativity, associativeSize);
 }
 
 Cache::~Cache() {
@@ -40,25 +44,22 @@ void Cache::read(ptr_t addr) {
 	printer::dot();
 
 	cache_info* loc = mCache + index;
-	if (loc->valid and loc->tag == tag) {
-		// We had a cache hit
-		++mHits;
+	if (mLocate(loc, tag)) {
+		++mHits; // We had a cache hit
 		printer::bksp();
 	} else {
 		// if we had a miss check the next level cache
-		if (mNext)
-			mNext->read(addr);
-		// default replacement policy
-		mRPolicy(mCache, index, tag);
+		if (mNext) mNext->read(addr);
+		mReplace(loc, tag);
 	}
 }
 
 void Cache::write(ptr_t addr) {
-	read(addr);
+	read(addr); // a read is pretty much a write
 }
 
 void Cache::fetch(ptr_t addr) {
-	read(addr);
+	// read(addr); // a fetch will basically do the same thing as a read
 }
 
 int Cache::getHits() const {
@@ -77,4 +78,55 @@ void always_replace_policy(cache_info* cache, ptr_t idx, ptr_t tag) {
 	loc->valid = true;
 	loc->tag = tag;
 
+}
+
+
+locate_func_t get_locate_func(uint8_t assoc, size_t offset) {
+	// if (assoc == 1) {
+	// 	return [](cache_info* cache, ptr_t idx, ptr_t tag) -> bool {
+	// 		cache_info* loc = cache + idx;
+	// 		return loc->valid and loc->tag == tag;
+	// 	};
+	// }
+
+	return [=](cache_info* loc, ptr_t tag) -> bool {
+		for (int i = 0; i < assoc; ++i) {
+			if (loc->valid and loc->tag == tag)
+				return true;
+			loc += offset;
+		}
+		return false;
+	};
+
+	/// if it is 4 ways assiciative when we want to divide the cache into 4 sections, check the index in the first
+	/// section, if its not there check the next section, (wich will be at an offset of (cache size) / (assiciativity))
+}
+
+replace_func_t get_replace_func(uint8_t assoc, size_t offset) {
+	uint8_t* least_used = new uint8_t[assoc]; // create bits for least_used
+	std::fill(least_used, least_used + assoc, 0);
+
+	return [=](cache_info* loc, ptr_t tag) -> void {
+		static std::unique_ptr<uint8_t[]> dat{ least_used }; // assume ownership of least used (to prevent leakage)
+
+		uint8_t& f = dat[0];
+		uint8_t& s = dat[1];
+
+		// decrement each one
+		for (int i = 0; i < assoc; ++i) {
+			if (dat[i]) --dat[i]; // decrement if not 0
+		}
+
+		// find the first one that is 0 and use it as cache
+		for (int i = 0; i < assoc; ++i) {
+			if (dat[i] == 0) {
+				dat[i] = assoc;
+				loc->valid = true;
+				loc->tag = tag;
+				break;
+			} else {
+				loc += offset;
+			}
+		}
+	};
 }

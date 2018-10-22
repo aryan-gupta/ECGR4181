@@ -60,7 +60,7 @@ inline
 #endif
 auto get_info(ParseData pd) -> addr_info {
 	size_t block_bits = std::log2(pd.block_size);
-	size_t index_bits = std::log2(pd.cache_size / pd.block_size);
+	size_t index_bits = std::log2(pd.cache_size / pd.block_size / pd.associativity);
 
 	constexpr int MAX_BIT = sizeof(ptr_t) * 8;
 	constexpr ptr_t F_MASK = std::numeric_limits<ptr_t>::max(); // creates 0xFFF...
@@ -72,7 +72,13 @@ auto get_info(ParseData pd) -> addr_info {
 	return ret;
 }
 
+using locate_func_t = std::function<bool(cache_info*, ptr_t)>;
+using replace_func_t = std::function<void(cache_info*, ptr_t)>;
+
 void always_replace_policy(cache_info* cache, ptr_t idx, ptr_t tag);
+
+replace_func_t get_replace_func(uint8_t assoc, size_t offset);
+locate_func_t get_locate_func(uint8_t assoc, size_t cache_size);
 
 class Cache {
 	// Please note that using a unordered_map would reduce usage of memory alot
@@ -85,7 +91,8 @@ class Cache {
 	int mHits;
 	int mAccess;
 
-	std::function<void(cache_info*, ptr_t, ptr_t)> mRPolicy;
+	replace_func_t mReplace;
+	locate_func_t mLocate;
 
 	ptr_t getTag(ptr_t ptr);
 	ptr_t getIndex(ptr_t ptr);

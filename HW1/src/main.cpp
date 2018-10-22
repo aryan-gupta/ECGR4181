@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 #include "main.hpp"
 #include "parse.hpp"
@@ -23,6 +24,14 @@ int main(int argn, char** args) {
 	}
 
 	access_type opfile = load_file(dat.file);
+	if (opfile.size() == 0) {
+		std::cerr << "[E] File " << dat.file << " not loaded, check if empty or not existant. ";
+#ifdef __cpp_lib_filesystem
+		std::cerr << "Current working directory is " << std::filesystem::current_path();
+#endif
+		std::cerr << std::endl;
+		std::terminate();
+	}
 
 	printer::intro(dat);
 
