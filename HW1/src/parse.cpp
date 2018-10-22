@@ -142,11 +142,11 @@ unsigned long strb2pf2ul(static_string_t str) {
 
 ParseData parse(const_cstr_array_t args, int argn) {
 	ParseData ret{
-		.file = "null",
+		.file = "ECGR4181/HW1/project/trace.din",
 		.replace_policy = "FIFO",
-		.cache_size = 0xFFFF, // ~65KB
-		.block_size = 0xFF,   // =255B
-		.associativity = 4,
+		.cache_size = 32 * 1024, // ~65KB
+		.block_size = 128,   // =255B
+		.associativity = 2,
 		.use_stdin = false
 	};
 
