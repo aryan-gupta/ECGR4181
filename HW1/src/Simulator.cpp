@@ -21,7 +21,7 @@ Simulator::~Simulator() {
 	}
 }
 
-void Simulator::doSim() {
+void Simulator::simulate() {
 #if __cpp_structured_bindings
 	for (auto [op, addr] : mIns) {
 #else

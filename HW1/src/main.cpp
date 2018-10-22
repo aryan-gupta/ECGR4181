@@ -36,7 +36,7 @@ int main(int argn, char** args) {
 	printer::intro(dat);
 
 	Simulator sim = Simulator{ std::move(opfile), dat };
-	sim.doSim();
+	sim.simulate();
 
 	printer::result(sim);
 	return 0;
