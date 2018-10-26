@@ -3,7 +3,6 @@
 #include <cstring>
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <filesystem>
 
 #include "main.hpp"
@@ -23,7 +22,13 @@ int main(int argn, char** args) {
 		return -1;
 	}
 
-	access_type opfile = load_file(dat.file);
+	access_type opfile;
+	if (dat.use_stdin) {
+		opfile = load_stream(std::cin);
+	} else {
+		opfile = load_stream(std::ifstream{ std::string{ dat.file } });
+	}
+
 	if (opfile.size() == 0) {
 		std::cerr << "[E] File " << dat.file << " not loaded, check if empty or not existant. ";
 #ifdef __cpp_lib_filesystem
@@ -40,23 +45,6 @@ int main(int argn, char** args) {
 
 	printer::result(sim);
 	return 0;
-}
-
-access_type load_file(static_string_t filename) {
-	std::vector<std::pair<Ops, ptr_t>> ret;
-
-	std::ifstream file{ std::string { filename } };
-	for (std::string line{  }; std::getline(file, line); ) {
-		std::stringstream ss{ line };
-		Ops code;
-		ptr_t location;
-
-		ss >> code >> std::hex >> location >> std::dec;
-
-		ret.emplace_back(code, location);
-	}
-
-	return ret;
 }
 
 std::ostream& operator<< (std::ostream& out, Ops& op) {
