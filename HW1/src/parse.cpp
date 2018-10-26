@@ -30,88 +30,106 @@
 /// 3) The member of ParseData the option sets
 /// 4) The modifier function that converts the cstring to the member type (see member 3)
 /// 5) The alternative option (short or long option)
+
+// I absulutely hate hate having to make 3 entries for each flag, Im going to have to
+// find a better way to do this
 const std::unordered_map<static_string_t, Option> arg_map {
-	{ "--cache-size",
+	{ "--ucache-size",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::cache_size, strb2pf2ul),
-			"-c"
+			get_setter(&ParseData::uni_cache_size, strb2pf2ul)
 		}
 	},
-	{ "-c",
+	{ "--dcache-size",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::cache_size, strb2pf2ul),
-			"--cache-size"
+			get_setter(&ParseData::dat_cache_size, strb2pf2ul)
 		}
 	},
-
-	{ "--block-size",
+	{ "--icache-size",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::block_size, strb2pf2ul),
-			"-b"
-		}
-	},
-	{ "-b",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::block_size, strb2pf2ul),
-			"--block-size"
+			get_setter(&ParseData::ins_cache_size, strb2pf2ul)
 		}
 	},
 
-	{ "--replace-policy",
+	{ "--ublock-size",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::replace_policy, [](const char* str){ return str; }),
-			"-r"
+			get_setter(&ParseData::uni_block_size, strb2pf2ul)
 		}
 	},
-	{ "-r",
+	{ "--dblock-size",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::replace_policy, [](const char* str){ return str; }),
-			"--replace-policy"
+			get_setter(&ParseData::dat_block_size, strb2pf2ul)
+		}
+	},
+	{ "--iblock-size",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::ins_block_size, strb2pf2ul)
+		}
+	},
+
+	{ "--ureplace-policy",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::uni_replace_policy, [](const char* str){ return str; })
+		}
+	},
+	{ "--dreplace-policy",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::dat_replace_policy, [](const char* str){ return str; })
+		}
+	},
+	{ "--ireplace-policy",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::ins_replace_policy, [](const char* str){ return str; })
 		}
 	},
 
 	{
-		"--associativity",
+		"--uassociativity",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::associativity, std::atol),
-			"-a"
+			get_setter(&ParseData::uni_associativity, std::atol)
 		}
 	},
-	{ "-a",
+	{
+		"--dassociativity",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::associativity, std::atol),
-			"--associativity"
+			get_setter(&ParseData::dat_associativity, std::atol)
+		}
+	},
+	{
+		"--iassociativity",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::ins_associativity, std::atol)
 		}
 	},
 
 	{ "--file",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::file, [](const char* str){ return str; }),
-			"-f"
+			get_setter(&ParseData::file, [](const char* str){ return str; })
 		}
 	},
 	{ "-f",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::file, [](const char* str){ return str; }),
-			"--file"
+			get_setter(&ParseData::file, [](const char* str){ return str; })
 		}
 	},
 
 	{ "-",
 		{
 			SWITCH,
-			get_setter(&ParseData::use_stdin, [](const char* str){ return true; }),
-			"-"
+			get_setter(&ParseData::use_stdin, [](const char* str){ return true; })
 		}
 	},
 };
@@ -141,14 +159,9 @@ unsigned long strb2pf2ul(static_string_t str) {
 }
 
 ParseData parse(const_cstr_array_t args, int argn) {
-	ParseData ret{
-		.file = "ECGR4181/HW1/project/trace.din",
-		.replace_policy = "FIFO",
-		.cache_size = 32 * 1024, // ~65KB
-		.block_size = 128,   // =255B
-		.associativity = 2,
-		.use_stdin = false
-	};
+	ParseData ret{	};
+	ret.uni = true;
+	ret.uni_cache_size = 33; // cache_size must be multiple of 2
 
 	for (int i = 1; i < argn; ++i) {
 		static_string_t str = args[i];
@@ -156,6 +169,7 @@ ParseData parse(const_cstr_array_t args, int argn) {
 
 		if (str[0] != '-') continue; // skip the prgm name if there is
 
+		// `--` stops the parsing of cli arguments
 		if (str[0] == '-' and str[1] == '-' and str[2] == '\0') break;
 
 		// parse stdin
@@ -239,6 +253,18 @@ ParseData parse(const_cstr_array_t args, int argn) {
 			throw bad_prgm_argument{ concact("[E] Bad argument: ", str) };
 		}
 	}
+
+	if (ret.uni_cache_size == 33) {
+		ret.uni = false;
+	}
+
+	// ret.file = "ECGR4181/HW1/project/trace.din";
+	// ret.uni = true;
+	// ret.uni_replace_policy = "FIFO";
+	// ret.uni_cache_size = 32 * 1024;
+	// ret.uni_block_size = 128;
+	// ret.uni_associativity = 2;
+	// ret.use_stdin = false;
 
 	return ret;
 }

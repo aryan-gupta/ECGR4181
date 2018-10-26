@@ -8,12 +8,17 @@
 Simulator::Simulator(access_type&& access, const ParseData& pd)
 	: mDataCache{  }, mInsCache{  }, mIns{ access }
 {
-	mDataCache = new Cache{ pd };
-	mInsCache = mDataCache; // for now
+	if (pd.uni) {
+		mDataCache = new Cache{ pd.uni_cache_size, pd.uni_block_size, pd.uni_associativity };
+		mInsCache = mDataCache; // If our cache is unified then the InsCache is the same as DataCache
+	} else {
+		mDataCache = new Cache{ pd.dat_cache_size, pd.dat_block_size, pd.dat_associativity };
+		mInsCache = new Cache{ pd.ins_cache_size, pd.ins_block_size, pd.ins_associativity };
+	}
 }
 
 Simulator::~Simulator() {
-	if (mDataCache == mInsCache) {
+	if (mDataCache == mInsCache) { // if we have an unified cache then just delete using one ptr
 		delete mDataCache;
 	} else {
 		delete mInsCache;
