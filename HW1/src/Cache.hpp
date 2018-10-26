@@ -39,7 +39,8 @@
 
 // @todo make this into seperate arrays, because the valid flag can be compressed
 struct cache_info {
-	bool valid = false;
+	bool valid;
+	uint8_t lru;
 	ptr_t tag;
 };
 
@@ -58,9 +59,9 @@ constexpr
 #warning "c++17 `__cpp_constexpr' not fully supported, falling back to inline/runtime impl"
 inline
 #endif
-auto get_info(ParseData pd) -> addr_info {
-	size_t block_bits = std::log2(pd.block_size);
-	size_t index_bits = std::log2(pd.cache_size / pd.block_size / pd.associativity);
+auto get_info(uint32_t cache, uint32_t block, uint8_t assoc) -> addr_info {
+	size_t block_bits = std::log2(block);
+	size_t index_bits = std::log2(cache / block / assoc);
 
 	constexpr int MAX_BIT = sizeof(ptr_t) * 8;
 	constexpr ptr_t F_MASK = std::numeric_limits<ptr_t>::max(); // creates 0xFFF...
@@ -100,7 +101,7 @@ class Cache {
 
 public:
 	Cache() = delete;
-	Cache(const ParseData& pd);
+	Cache(uint32_t cache, uint32_t block, uint8_t assoc);
 	~Cache();
 
 	void read(ptr_t addr);

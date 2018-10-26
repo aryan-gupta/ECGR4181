@@ -47,10 +47,23 @@ std::string concact(T a, T b, R... c) {
 
 struct ParseData {
 	static_string_t file;
-	static_string_t replace_policy;
-	uint32_t        cache_size;
-	uint32_t        block_size;
-	uint8_t         associativity;
+
+	bool            uni;
+	static_string_t uni_replace_policy;
+	uint32_t        uni_cache_size;
+	uint32_t        uni_block_size;
+	uint8_t         uni_associativity;
+
+	static_string_t dat_replace_policy;
+	uint32_t        dat_cache_size;
+	uint32_t        dat_block_size;
+	uint8_t         dat_associativity;
+
+	static_string_t ins_replace_policy;
+	uint32_t        ins_cache_size;
+	uint32_t        ins_block_size;
+	uint8_t         ins_associativity;
+
 	bool            use_stdin;
 };
 
@@ -75,7 +88,6 @@ enum OpType {
 struct Option {
 	OpType type;
 	parse_setter_t set;
-	static_string_t alt_op;
 };
 
 // This function returns a function that sets the member variable using the modifyer function func
