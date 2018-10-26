@@ -11,6 +11,7 @@
 #include <utility>
 #include <iostream>
 #include <type_traits>
+#include <sstream>
 
 #include "parse.hpp"
 
@@ -44,7 +45,32 @@ using ratio_t = std::pair<int, int>;
 
 int main(int argn, char** args);
 
-access_type load_file(static_string_t filename);
-
 std::ostream& operator<< (std::ostream& out, Ops& op);
 std::istream& operator>> (std::istream& in,  Ops& op);
+
+
+// I need the decay here because if I do load_stream(std::cin) then
+// T is a std::istream& and std::istream and std::istream& are not the
+// same or base type. Decay will transform std::istream& to std::istream
+// Also we cant use std::is_base_of_v as it is c++17
+template <typename T, typename = std::enable_if_t<std::is_base_of<std::istream, typename std::decay_t<T>>::value>>
+access_type load_stream(T&& stream) {
+	if(!stream) return { };
+
+	std::vector<std::pair<Ops, ptr_t>> ret;
+
+	for (std::string line{  }; std::getline(stream, line); ) {
+		std::stringstream ss{ line };
+		Ops code;
+		ptr_t location;
+
+		ss >> code >> std::hex >> location >> std::dec;
+
+		if (ss.bad()) return {  };
+		if (ss.fail()) return {  };
+
+		ret.emplace_back(code, location);
+	}
+
+	return ret;
+}
