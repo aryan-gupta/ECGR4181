@@ -34,4 +34,8 @@
 				\caption{Metrics of a unified cache}
 			\end{center}
 		\end{figure}
+		A general trend that can be seen in Figure \ref{uni-cache-metrics} is that as the associativity increases the miss rate drops. This is because when the associativity is increased a cache line is less likely to fight another line for a spot in the cache. This type of cache miss is known as conflict misses because 2 lines are confilicting for a spot in the cache. Another trend that can be seen is that as the size of the cache line is increased, the miss rate drops. This is because as the cache line size is increased the spacial locality of that line is also increased. When data is accessed, it is highly likly that some data next to or around that data will be accessed next or in the near future. By increasing the blick size, we can take advantage of this fact and load possible future memory access into the cache befoire they are actually accessed. This type of cache is usually used in L2 caches because the data and instructions dont need to be seperated.  
+		\par
+		Contrary to the L2 cache, the L1 cache is usually  
+		
 \end{document}
