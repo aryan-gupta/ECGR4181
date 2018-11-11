@@ -92,7 +92,7 @@ locate_func_t get_locate_func(uint8_t assoc, size_t offset) {
 		bool found = false;
 
 		for (int i = 0; i < assoc; ++i) {
-			if (loc->valid and loc->tag == tag) {
+			if (!found and loc->valid and loc->tag == tag) {
 				loc->lru = assoc - 1;
 				found = true;
 			} else {
