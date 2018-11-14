@@ -1,0 +1,150 @@
+ECGR4181/HW3/pin-3.7 on  HW3 [!?] took 2m 9s 
+➜ ./pin -t source/tools/Memory/obj-intel64/allcache.so -- ../dhrystone/gcc_dry2                                       ✘130 at 
+10:08:16 
+Dhrystone Benchmark, Version 2.1 (Language: C)
+Program compiled without 'register' attribute
+Please give the number of runs through the benchmark: 999999
+Execution starts, 999999 runs through Dhrystone
+Execution ends
+Final values of the variables used in the benchmark:
+Int_Glob:            5
+should be:   5
+Bool_Glob:           1
+should be:   1
+Ch_1_Glob:           A
+should be:   A
+Ch_2_Glob:           B
+should be:   B
+Arr_1_Glob[8]:       7
+should be:   7
+Arr_2_Glob[8][7]:    1000009
+should be:   Number_Of_Runs + 10
+Ptr_Glob->
+Ptr_Comp:          -1063873952
+should be:   (implementation-dependent)
+Discr:             0
+should be:   0
+Enum_Comp:         2
+should be:   2
+Int_Comp:          17
+should be:   17
+Str_Comp:          DHRYSTONE PROGRAM, SOME STRING
+should be:   DHRYSTONE PROGRAM, SOME STRING
+Next_Ptr_Glob->
+Ptr_Comp:          -1063873952
+should be:   (implementation-dependent), same as above
+Discr:             0
+should be:   0
+Enum_Comp:         1
+should be:   1
+Int_Comp:          18
+should be:   18
+Str_Comp:          DHRYSTONE PROGRAM, SOME STRING
+should be:   DHRYSTONE PROGRAM, SOME STRING
+Int_1_Loc:           5
+should be:   5
+Int_2_Loc:           13
+should be:   13
+Int_3_Loc:           7
+should be:   7
+Enum_Loc:            1
+should be:   1
+Str_1_Loc:           DHRYSTONE PROGRAM, 1'ST STRING
+should be:   DHRYSTONE PROGRAM, 1'ST STRING
+Str_2_Loc:           DHRYSTONE PROGRAM, 2'ND STRING
+should be:   DHRYSTONE PROGRAM, 2'ND STRING
+Microseconds for one run through Dhrystone:   26.0 
+Dhrystones per Second:                      38461.5 
+ITLB:
+Load Hits:       263245913
+Load Misses:           135
+Load Accesses:   263246048
+Load Miss Rate:      0.00%
+Store Hits:               0
+Store Misses:             0
+Store Accesses:           0
+Store Miss Rate:       nan%
+Total Hits:       263245913
+Total Misses:           135
+Total Accesses:   263246048
+Total Miss Rate:      0.00%
+Flushes:                  0
+Stat Resets:              0
+DTLB:
+Load Hits:       124077146
+Load Misses:           269
+Load Accesses:   124077415
+Load Miss Rate:      0.00%
+Store Hits:               0
+Store Misses:             0
+Store Accesses:           0
+Store Miss Rate:       nan%
+Total Hits:       124077146
+Total Misses:           269
+Total Accesses:   124077415
+Total Miss Rate:      0.00%
+Flushes:                  0
+Stat Resets:              0
+L1 Instruction Cache:
+Load Hits:       263243788
+Load Misses:          2260
+Load Accesses:   263246048
+Load Miss Rate:      0.00%
+Store Hits:               0
+Store Misses:             0
+Store Accesses:           0
+Store Miss Rate:       nan%
+Total Hits:       263243788
+Total Misses:          2260
+Total Accesses:   263246048
+Total Miss Rate:      0.00%
+Flushes:                  0
+Stat Resets:              0
+L1 Data Cache:
+Load Hits:        66053139
+Load Misses:          4957
+Load Accesses:    66058096
+Load Miss Rate:      0.01%
+Store Hits:        54015697
+Store Misses:       4003622
+Store Accesses:    58019319
+Store Miss Rate:      6.90%
+Total Hits:       120068836
+Total Misses:       4008579
+Total Accesses:   124077415
+Total Miss Rate:      3.23%
+Flushes:                  0
+Stat Resets:              0
+L2 Unified Cache:
+Load Hits:            3765
+Load Misses:          3452
+Load Accesses:        7217
+Load Miss Rate:     47.83%
+Store Hits:         4003056
+Store Misses:           566
+Store Accesses:     4003622
+Store Miss Rate:      0.01%
+Total Hits:         4006821
+Total Misses:          4018
+Total Accesses:     4010839
+Total Miss Rate:      0.10%
+Flushes:                  0
+Stat Resets:              0
+L3 Unified Cache:
+Load Hits:              35
+Load Misses:          3417
+Load Accesses:        3452
+Load Miss Rate:     98.99%
+Store Hits:               4
+Store Misses:           562
+Store Accesses:         566
+Store Miss Rate:     99.29%
+Total Hits:              39
+Total Misses:          3979
+Total Accesses:        4018
+Total Miss Rate:     99.03%
+Flushes:                  0
+Stat Resets:              0
+ECGR4181/HW3/pin-3.7 on  HW3 [!?] took 32s
+➜                                                                                                                             
+10:08:50
