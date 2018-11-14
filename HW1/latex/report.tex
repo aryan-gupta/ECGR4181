@@ -113,7 +113,10 @@ cat ../../project/trace.din | ./dineroIV -l1-usize <CACHE_SIZE> -l1-ubsize <BLOC
 			The rest of the 32 bits are the tag.
 			\[ Tag bits = 32 - blockbits - cachesize = 32 - 4 - 12 = 16 \]
 			Using these 3 pieces of information, the masks and bit shifts can be calaculated to extract each part of the address. More details can be viewed in \verb|Cache::getTag(ptr_t)|. Once the cache sizes and address bits are set, the replace and locate function are computed.
-
+			\par
+			The simulator goes through each of the instructions and depending if its a read, write, or a fetch, it calls the repective function. The Simulator has 2 \verb|Cache*| objects, one for the data and another for the instruction cache. When the simulator is run for a unified cache, the pointers point to one cache object. Each cache objects holds the number of cache misses and hits and can be queried by \verb|Cache::getHits() const| and \verb|Cache::getAccess() const|
+			\par
+			The other 2 files: \verb|parse| and \verb|printer| is responsible for parsing and pringing various information to the console.
 
 	\subsection{Pintools}
 
