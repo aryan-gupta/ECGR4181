@@ -36,4 +36,10 @@
 # Data files
 *.dat
 
+*pin*
+*dhrystone*
+*l_lpk_p_10.3.4.007.tgz
+*linpack*
+*test*
+
 HW1/dinero/d4-7/
