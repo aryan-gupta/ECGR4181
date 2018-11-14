@@ -39,4 +39,12 @@
 # Office Temp Files
 ~$*
 
+# Latex tmp files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.pdf
+
 HW1/dinero/d4-7/
