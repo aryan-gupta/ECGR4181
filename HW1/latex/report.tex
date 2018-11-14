@@ -117,8 +117,49 @@ cat ../../project/trace.din | ./dineroIV -l1-usize <CACHE_SIZE> -l1-ubsize <BLOC
 			The simulator goes through each of the instructions and depending if its a read, write, or a fetch, it calls the repective function. The Simulator has 2 \verb|Cache*| objects, one for the data and another for the instruction cache. When the simulator is run for a unified cache, the pointers point to one cache object. Each cache objects holds the number of cache misses and hits and can be queried by \verb|Cache::getHits() const| and \verb|Cache::getAccess() const|
 			\par
 			The other 2 files: \verb|parse| and \verb|printer| is responsible for parsing and pringing various information to the console.
+		\subsubsection{Running the Code}
+			The code can be run in 2 ways. It can be run using lines from a file.
+			\begin{lstlisting}
+./bin/main.out -ftest/dry_trace.din --ucache-size=32K --ublock-size=128 --uassociativity=1
+			\end{lstlisting}
+			or from stdin
+			\begin{lstlisting}
+cat test/dry_trace.din | ./bin/main.out - --ucache-size=32K --ublock-size=128 --uassociativity=1
+			\end{lstlisting}
+			The program can be also run for a split cache by using
+			\begin{lstlisting}
+cat test/dry_trace.din | ./bin/main.out - --ucache-size=32K --ublock-size=128 --uassociativity=1
+			\end{lstlisting}
+
 
 	\subsection{Pintools}
+		Pintools was a very finicy software, trying to understand how it worked was very difficult until I had to ask a few of my friends that did get it working. From what we understood, pin is a program that queries information from the procssor, the type of information it queties can be changed by the \verb|-t| command line argument. This argument takes in a dynamic library that quiries the processor. In our test we used the \verb|allcache.so| library that shows cache information. The linpack benchmarks I was using were all precompiled, I could not find a source online that was viable for me to use. The dhrystone benchmark has never worked for me, even with HW0. Ive tried multiple sources and they dont seem to give correct results. For example, Figure \ref{pin:dry_graph} shows me that no matter what optimization I use, I always get the same amount of cache misses in each level. Because some of the data is not easy to see in the graph I have also included Table \ref{pin:dry_table}. You can see that as the optimization level increases, the cache misses should go down as the optimization probebly tries to reorder instructions to minimize the memory access.
+		\begin{figure}[H]
+			\label{fig:dry_graph}
+			\begin{center}
+				\includegraphics[width=\textwidth]{dry_graph.png}
+				\caption{Metrics of a unified cache}
+			\end{center}
+		\end{figure}
+		\begin{figure}[H]
+			\label{fig:dry_table}
+			\begin{center}
+				\includegraphics[width=\textwidth]{dry_table.png}
+				\caption{Metrics of a unified cache}
+			\end{center}
+		\end{figure}
 
+		% TODO HERE
+
+	\subsection{Benchmark Memory Trace}
+		The last part of the assignment was to create our own memory trace for dineroIV and use it on our cache simulator. One of the difficult parts was that all my machines were 64bit machines, so running pintools to create a trace would create 64-bit addresses. The code that I wrote only works with 32-bit. After a bit of modification, I got it to work with 64-bit address. I could not get linpack to work with pintools, I kept getting a segmentation fault. Here are the results for the dhrystone trace.
+		\begin{figure}[H]
+			\label{fig:custom_dry}
+			\begin{center}
+				\includegraphics[width=\textwidth]{custom_dry.png}
+				\caption{Dhrystone trace on custom cache simulator}
+			\end{center}
+		\end{figure}
+		As you can see in this image, as we increase the block size, our cache misses go down. This is because of spacial locality in the program. When we address one location, it is highly likely that we will address another address in close vicinity. Another trend we can see is very similar to the previous one. When we increase the cache to a 64K cache then the cache misses drops, however not as sharply as the block size increase did. The decrease in Cache misses is because of the reduction in Capacity misses. Cacpacity misses are when our cache is full and we need to eject old data that we will need to fit in the new block.
 
 \end{document}
