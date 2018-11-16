@@ -127,7 +127,8 @@ cat test/dry_trace.din | ./bin/main.out - --ucache-size=32K --ublock-size=128 --
             \end{lstlisting}
             The program can be also run for a split cache by using
             \begin{lstlisting}
-cat test/dry_trace.din | ./bin/main.out - --ucache-size=32K --ublock-size=128 --uassociativity=1
+cat test/dry_trace.din | ./bin/main.out - --dcache-size=32K --icache-size=32K --iblock-size=128 --dblock-size=128 --dassociativity=1 --iassociativity=1
+
             \end{lstlisting}
 
     \subsection{Pintools}
