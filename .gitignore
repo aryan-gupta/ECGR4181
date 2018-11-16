@@ -36,4 +36,19 @@
 # Data files
 *.dat
 
+# Office Temp Files
+~$*
+
+# Latex tmp files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.pdf
+
+*pin*
+
+HW1/dhrystone
+HW1/test/dry_trace.din
 HW1/dinero/d4-7/

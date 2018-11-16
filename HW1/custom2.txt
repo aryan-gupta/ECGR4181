@@ -1,0 +1,11 @@
+ECGR4181/HW1 on  HW1 [!?] took 2s
+➜ ./bin/main.out -ftest/dry_trace.din --ucache-size=16K --ublock-size=128 --uassociativity=4                                  
+12:17:04
+File and parameters successfully loaded.
+Unified Cache size...... 16384
+Unified Block size...... 128
+Unified Replace Policy..
+Unified Associativity... 4
+Use stdin............... 0
+================ Results ================
+Hits: 12474711 Misses: 2794 Total: 12477505 Ratio: 0.999776

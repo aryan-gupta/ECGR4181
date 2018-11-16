@@ -1,0 +1,8 @@
+File and parameters successfully loaded.
+Unified Cache size...... 16384
+Unified Block size...... 32
+Unified Replace Policy..
+Unified Associativity... 4
+Use stdin............... 0
+================ Results ================
+Hits: 12471154 Misses: 6351 Total: 12477505 Ratio: 0.999491

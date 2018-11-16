@@ -37,7 +37,7 @@ enum class Ops {
 	FETCH
 };
 
-using ptr_t = uint32_t;
+using ptr_t = uint64_t;
 using access_type = std::vector<std::pair<Ops, ptr_t>>;
 
 template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>> // std::is_integral_v<T> is c++17
@@ -66,8 +66,8 @@ access_type load_stream(T&& stream) {
 
 		ss >> code >> std::hex >> location >> std::dec;
 
-		if (ss.bad()) return {  };
-		if (ss.fail()) return {  };
+		if (ss.bad()) return ret;
+		if (ss.fail()) return ret;
 
 		ret.emplace_back(code, location);
 	}
