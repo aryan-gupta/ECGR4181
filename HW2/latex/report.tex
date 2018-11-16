@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{pdfpages}
+\graphicspath{ {.} }
+
+\usepackage{fancyhdr}
+\usepackage[pdftex,
+    pdfauthor={Aryan Gupta},
+    pdftitle={ECGR4181 HW1 Report},
+    pdfsubject={Homework Report},
+    pdfkeywords={},
+    pdfproducer={Latex with hyperref},
+    pdfcreator={}
+]{hyperref}
+\usepackage[margin=1in]{geometry}
+\hypersetup{colorlinks=true, linkcolor=black,urlcolor=black}
+\usepackage[margin=1in]{geometry}
+\usepackage{lastpage}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath,amsfonts, amsthm}
+\usepackage{float}
+\usepackage{graphicx}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{$\hookrightarrow$\space},
+}
+
+\begin{document}
+	\subsection{Row/Column Major Test}
+		In order to test the Row or Column "majorness" of my system, a simple test was conducted. 2 2-Dimentional arrays were created and 2 nested loops were used to iterate over the arrays. One loop iterated using row first symantics and the other loop used column first schemantics. When run, the column major code takes alot longer than the row major loop.
+
+		
+\end{document}
