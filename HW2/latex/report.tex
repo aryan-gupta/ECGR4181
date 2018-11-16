@@ -5,12 +5,12 @@
 
 \usepackage{fancyhdr}
 \usepackage[pdftex,
-    pdfauthor={Aryan Gupta},
-    pdftitle={ECGR4181 HW1 Report},
-    pdfsubject={Homework Report},
-    pdfkeywords={},
-    pdfproducer={Latex with hyperref},
-    pdfcreator={}
+	pdfauthor={Aryan Gupta},
+	pdftitle={ECGR4181 HW1 Report},
+	pdfsubject={Homework Report},
+	pdfkeywords={},
+	pdfproducer={Latex with hyperref},
+pdfcreator={}
 ]{hyperref}
 \usepackage[margin=1in]{geometry}
 \hypersetup{colorlinks=true, linkcolor=black,urlcolor=black}
@@ -23,16 +23,36 @@
 \usepackage{graphicx}
 
 \lstset{
-  basicstyle=\ttfamily,
-  columns=fullflexible,
-  frame=single,
-  breaklines=true,
-  postbreak=\mbox{$\hookrightarrow$\space},
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	frame=single,
+	breaklines=true,
+	postbreak=\mbox{$\hookrightarrow$\space},
 }
 
 \begin{document}
+	\subsection{Dinero Prefetcher}
+		The Dinero cache simulator also has options to simulate a prefetcher. A prefeture is an active device that looks for possible data that the program may need in the future and preloads it into the cache or anotehr buffer. This reduces the number of Compulory misses because the prefetcher attempts to load the data even before the program needs it. The command line switches for the Dinero cache simulator are \verb|-l1-ufetch| which sets the type of prefetcher to use. In our case we used a tagged prefetcher (\verb|-l1-ufetch t|) as stated in the assignment. The next argument is the \verb|-l1-upfdist|, which sets up the prefetcher max stride distance. The last argument used is \verb|-lN-Tpfabort| ehich sets the abort percentage. 
+
+		\begin{table}[]
+			\label{din:prefetch_data}
+			\begin{tabular}{lll}
+			Prefetcher Type & Misses & Total \\
+			2 | 50          & 104    & 194   \\
+			4 | 50          & 103    & 194   \\
+			8 | 50          & 102    & 194   \\
+			16 | 50         & 97     & 194   \\
+			& & \\
+			8 | 10          & 148    & 342   \\
+			8 | 20          & 137    & 303   \\
+			8 | 25          & 132    & 282   \\
+			8 | 75          & 56     & 98   
+			\end{tabular}
+		\end{table}
+
+		When the prefetcher distance, the actuacy of the prefeture did improve, but was not significant to produce any concrete conclusions other than changing the prefetcher distance did not effect this perticular trace. Changing the abort percentage gave better results, as the abort rate was decreased the acuracy of the prefeure increased, possibly because of more space to prefetcher data. This can be seein in Table \ref{din:prefetch_data}
+
 	\subsection{Row/Column Major Test}
 		In order to test the Row or Column "majorness" of my system, a simple test was conducted. 2 2-Dimentional arrays were created and 2 nested loops were used to iterate over the arrays. One loop iterated using row first symantics and the other loop used column first schemantics. When run, the column major code takes alot longer than the row major loop.
 
-		
 \end{document}
