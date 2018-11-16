@@ -31,10 +31,11 @@ pdfcreator={}
 }
 
 \begin{document}
-	\subsection{Dinero Prefetcher}
+	\section{Dinero Prefetcher}
 		The Dinero cache simulator also has options to simulate a prefetcher. A prefeture is an active device that looks for possible data that the program may need in the future and preloads it into the cache or anotehr buffer. This reduces the number of Compulory misses because the prefetcher attempts to load the data even before the program needs it. The command line switches for the Dinero cache simulator are \verb|-l1-ufetch| which sets the type of prefetcher to use. In our case we used a tagged prefetcher (\verb|-l1-ufetch t|) as stated in the assignment. The next argument is the \verb|-l1-upfdist|, which sets up the prefetcher max stride distance. The last argument used is \verb|-lN-Tpfabort| ehich sets the abort percentage. 
 
-		\begin{table}[]
+		\begin{table}[H]
+			\centering
 			\label{din:prefetch_data}
 			\begin{tabular}{lll}
 			Prefetcher Type & Misses & Total \\
@@ -48,11 +49,17 @@ pdfcreator={}
 			8 | 25          & 132    & 282   \\
 			8 | 75          & 56     & 98   
 			\end{tabular}
+			\caption{The prefeture (prefeture distance | abort precent) and its corrisponding misses}
 		\end{table}
-
 		When the prefetcher distance, the actuacy of the prefeture did improve, but was not significant to produce any concrete conclusions other than changing the prefetcher distance did not effect this perticular trace. Changing the abort percentage gave better results, as the abort rate was decreased the acuracy of the prefeure increased, possibly because of more space to prefetcher data. This can be seein in Table \ref{din:prefetch_data}
 
-	\subsection{Row/Column Major Test}
-		In order to test the Row or Column "majorness" of my system, a simple test was conducted. 2 2-Dimentional arrays were created and 2 nested loops were used to iterate over the arrays. One loop iterated using row first symantics and the other loop used column first schemantics. When run, the column major code takes alot longer than the row major loop.
+	\section{Row/Column Major Test}
+		In order to test the Row or Column "majorness" of my system, a simple test was conducted. 2 2-Dimentional arrays were created and 2 nested loops were used to iterate over the arrays. One loop iterated using row first symantics and the other loop used column first schemantics. As seen in Figure \ref{rc:res_graph}, the column major code takes alot longer than the row major loop when run.
+		\begin{figure}[H]
+			\label{rc:res_graph}
+			\centering
+			\includegraphics{res_graph.png}
+			\caption{The time to iterate over row or column major 2D arrays}
+		\end{figure}
 
 \end{document}
