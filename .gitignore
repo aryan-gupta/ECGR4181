@@ -47,13 +47,20 @@
 *.synctex.gz
 *.pdf
 
+# python cache
+*__pycache__*
+
 *pin*
 
 HW1/dhrystone
 HW1/test/dry_trace.din
 HW1/dinero/d4-7/
+
 HW2/pintool/
 HW2/dinero
+
 HW3/dhrystone*
 HW3/l_lpk_p_10.3.4.007.tgz
 HW3/linpack_10.3.4
+
+HW4/project/branch-trace-gcc.trace
