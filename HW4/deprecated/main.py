@@ -1,6 +1,6 @@
 import sys, os
 
-# import ParseData
+from ParseCLI import get_parse
 from reader import reader
 
 def main():
