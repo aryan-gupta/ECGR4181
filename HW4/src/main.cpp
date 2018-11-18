@@ -16,7 +16,7 @@ trace_t load_stream(T&& stream) {
 	trace_t ret_val;
 
 	for (std::string line; std::getline(stream, line); ) {
-		addr_t addr = std::atoi(line.data());
+		addr_t addr = std::atoll(line.data());
 		bool taken = (line[line.size() - 1] == 'T')? true : false;
 
 		ret_val.push_back({ addr, taken });
@@ -31,7 +31,7 @@ int main() {
 	if (false) {
 		trace = load_stream(std::cin);
 	} else {
-		trace = load_stream(std::ifstream{ std::string{ "./project/branch-trace-gcc.trace" } });
+		trace = load_stream(std::ifstream{ std::string{ "./project/branch-trace-gcc.trace" } }); // @TODO soft code this once we get parsing correct
 	}
 
 	for (int i = 0; i < 10; ++i) {
