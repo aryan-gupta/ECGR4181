@@ -16,7 +16,7 @@ trace_t load_stream(T&& stream) {
 	trace_t ret_val;
 
 	for (std::string line; std::getline(stream, line); ) {
-		addr_t addr = std::atoll(line.data());
+		addr_t addr = std::stoll(line);
 		bool taken = (line[line.size() - 1] == 'T')? true : false;
 
 		ret_val.push_back({ addr, taken });
