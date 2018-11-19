@@ -1,7 +1,7 @@
 
-#include "SaturatingBP.hpp"
+#include "Saturating.hpp"
 
-bool BranchPredictorTypes::SaturatingBP::operator()(addr_t addr) {
+bool BranchPredictorTypes::Saturating::operator()(addr_t addr) {
 	addr_t idx = get_sbits(addr);
 
 	if (mPHT[idx].value() >= (counter_t::max() / 2)) {
@@ -11,7 +11,7 @@ bool BranchPredictorTypes::SaturatingBP::operator()(addr_t addr) {
 	return false;
 }
 
-void BranchPredictorTypes::SaturatingBP::operator()(addr_t addr, bool taken) {
+void BranchPredictorTypes::Saturating::operator()(addr_t addr, bool taken, bool) {
 	if (taken) {
 		++mPHT[get_sbits(addr)];
 	} else {

@@ -9,22 +9,6 @@
 #include "main.hpp"
 #include "Simulator.hpp"
 
-template <typename T, typename = std::enable_if_t<std::is_base_of<std::istream, typename std::decay_t<T>>::value>>
-trace_t load_stream(T&& stream) {
-	if (!stream) throw std::invalid_argument{ "[E] stream cannot be empty" };
-
-	trace_t ret_val;
-
-	for (std::string line; std::getline(stream, line); ) {
-		addr_t addr = std::stoll(line);
-		bool taken = (line[line.size() - 1] == 'T')? true : false;
-
-		ret_val.push_back({ addr, taken });
-	}
-
-	return ret_val;
-}
-
 int main() {
 
 	trace_t trace;

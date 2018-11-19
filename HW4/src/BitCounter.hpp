@@ -11,6 +11,10 @@ constexpr auto pow(T b, U e) -> T {
 	return (e == 0)? 1 : b * pow(b, e - 1);
 }
 
+// A simple bit counter. Counts up and down from 0 to the max (2 ^ B). There is probs a way
+// to remove the typename T but Im trying to get this working. Will try if I get time. The
+// Counter does not look, therefore, doing ++BitCounter{ mSize - 1 } will do nothing. Essentally,
+// a 2 bit counter can only have values of 0, 1, 2, and 3.
 template <std::size_t B, typename T>
 class BitCounter {
 	static constexpr std::size_t mSize = pow(2, B);
