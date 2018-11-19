@@ -6,8 +6,8 @@
 #include <fstream>
 #include <string>
 
-using addr_t = uint64_t; // type for storing addresses
-using trace_t = std::vector<std::pair<addr_t, bool>>;
+#include "main.hpp"
+#include "Simulator.hpp"
 
 template <typename T, typename = std::enable_if_t<std::is_base_of<std::istream, typename std::decay_t<T>>::value>>
 trace_t load_stream(T&& stream) {
@@ -34,9 +34,10 @@ int main() {
 		trace = load_stream(std::ifstream{ std::string{ "./project/branch-trace-gcc.trace" } }); // @TODO soft code this once we get parsing correct
 	}
 
-	for (int i = 0; i < 10; ++i) {
-		std::cout << trace[i].first << " " << trace[i].second << std::endl;
-	}
+	Simulator sim{ std::move(trace), {} };
+	sim();
+	std::cout << sim.getResults().first << " / " << sim.getResults().second << std::endl;
+	std::cout << (double(sim.getResults().first) / sim.getResults().second) << std::endl;
 
 	return 0;
 }
