@@ -40,5 +40,6 @@
 		"ctime": "cpp",
 		"deque": "cpp",
 		"ratio": "cpp"
-	}
+	},
+	"C_Cpp.default.cppStandard": "c++17"
 }

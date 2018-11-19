@@ -3,10 +3,12 @@
 #include "main.hpp"
 #include "Simulator.hpp"
 #include "Saturating.hpp"
+#include "TwoLevelGlobal.hpp"
+#include "TwoLevelGShare.hpp"
 
 Simulator::Simulator(trace_t&& trace, ParseData dat)
 	: mTrace{ std::move(trace) }
-	, mBP{ new BranchPredictorTypes::Saturating() }
+	, mBP{ new BranchPredictorTypes::TwoLevelGShare() }
 {
 
 }

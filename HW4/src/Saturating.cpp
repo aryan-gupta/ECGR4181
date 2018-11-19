@@ -3,12 +3,7 @@
 
 bool BranchPredictorTypes::Saturating::operator()(addr_t addr) {
 	addr_t idx = get_sbits(addr);
-
-	if (mPHT[idx].value() >= (counter_t::max() / 2)) {
-		// std::cout <<
-		return true;
-	}
-	return false;
+	return mPHT[idx].value() >= (counter_t::max() / 2);
 }
 
 void BranchPredictorTypes::Saturating::operator()(addr_t addr, bool taken, bool) {

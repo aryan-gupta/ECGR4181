@@ -23,7 +23,7 @@ class BitCounter {
 	T mCount;
 
 public:
-	constexpr BitCounter() : mCount{ max() / 2 } {  }
+	constexpr BitCounter() : mCount{ 0 } {  } // README states that it should be init as SNT
 	constexpr BitCounter(T count) : mCount{ count } {  }
 
 	constexpr BitCounter& operator++ () {
