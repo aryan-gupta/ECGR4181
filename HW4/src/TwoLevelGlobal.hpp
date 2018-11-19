@@ -8,9 +8,9 @@
 namespace BranchPredictorTypes {
 
 class TwoLevelGlobal : public BranchPredictor {
-	using counter_t = BitCounter<2, uint8_t>;
+	using counter_t = BitCounter<2>;
 	std::array<counter_t, 1024> mPHT;
-	ShiftRegister<10, uint16_t> mGHT;
+	ShiftRegister<10> mGHT;
 
 public:
 	virtual bool operator()(addr_t addr);

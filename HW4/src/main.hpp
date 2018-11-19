@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <vector>
 #include <iostream>
+#include <type_traits>
 
 // constexpr
 
@@ -28,10 +29,28 @@ trace_t load_stream(T&& stream) {
 	return ret_val;
 }
 
-template <std::size_t T>
-struct least { };
+// This code picks a uint type that is at least X bits. For example,
+// if we run uleast_t<5> then it will return uint8_t because it is at least
+// 5 bits. If we run uleast_t<9> then it will return uint16_t because it is 
+// at least 9 bytes
+template <std::size_t A, std::size_t B>
+constexpr bool less() {
+	return A < B;
+}
 
-template <typename T>
-struct least_helper_derived {
-	using
+template <std::size_t S>
+struct uleast {
+	using type =
+		std::conditional_t<less<S, 8>(), uint8_t,
+			std::conditional_t<less<S, 16>(), uint16_t,
+				std::conditional_t<less<S, 32>(), uint32_t,
+					std::conditional_t<less<S, 64>(), uint64_t,
+						void
+					>
+				>
+			>
+		>;
 };
+
+template <std::size_t S>
+using uleast_t = typename uleast<S>::type;

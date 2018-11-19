@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <iostream>
 
+#include "main.hpp"
+
 // std::pow is not yet constexpr
 template <typename T, typename U, typename = std::enable_if_t<std::is_integral<U>::value>>
 constexpr auto pow(T b, U e) -> T {
@@ -15,7 +17,7 @@ constexpr auto pow(T b, U e) -> T {
 // to remove the typename T but Im trying to get this working. Will try if I get time. The
 // Counter does not look, therefore, doing ++BitCounter{ mSize - 1 } will do nothing. Essentally,
 // a 2 bit counter can only have values of 0, 1, 2, and 3.
-template <std::size_t B, typename T>
+template <std::size_t B, typename T = uleast_t<B>>
 class BitCounter {
 	static constexpr std::size_t mSize = pow(2, B);
 	T mCount;

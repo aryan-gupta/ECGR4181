@@ -10,7 +10,7 @@
 namespace BranchPredictorTypes {
 
 class Saturating : public BranchPredictor {
-	using counter_t = BitCounter<2, uint8_t>;
+	using counter_t = BitCounter<2>;
 	std::array<counter_t, 1024> mPHT;
 
 public:

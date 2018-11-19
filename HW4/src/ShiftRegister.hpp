@@ -2,7 +2,9 @@
 #include <cstdint>
 #include <limits>
 
-template <std::size_t B, typename T>
+#include "main.hpp"
+
+template <std::size_t B, typename T = uleast_t<B>>
 class ShiftRegister {
 	constexpr T mMask = 1 << (B - 1);
 	T mValue;
