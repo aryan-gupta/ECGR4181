@@ -9,7 +9,7 @@
 
 namespace BranchPredictorTypes {
 
-class Saturating : public BranchPredictor {
+class TwoBit : public BranchPredictor {
 	using counter_t = BitCounter<2>;
 	std::array<counter_t, 1024> mPHT;
 

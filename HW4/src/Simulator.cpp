@@ -2,14 +2,16 @@
 
 #include "main.hpp"
 #include "Simulator.hpp"
-#include "Saturating.hpp"
+#include "Always.hpp"
+#include "OneBit.hpp"
+#include "TwoBit.hpp"
 #include "TwoLevelGlobal.hpp"
 #include "TwoLevelGShare.hpp"
 #include "TwoLevelLocal.hpp"
 
 Simulator::Simulator(trace_t&& trace, ParseData dat)
 	: mTrace{ std::move(trace) }
-	, mBP{ new BranchPredictorTypes::TwoLevelLocal() }
+	, mBP{ new BranchPredictorTypes::Always(false) }
 {
 
 }
