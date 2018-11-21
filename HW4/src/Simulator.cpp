@@ -1,5 +1,7 @@
 
 
+#include <string>
+
 #include "main.hpp"
 #include "Simulator.hpp"
 #include "Always.hpp"
@@ -7,13 +9,27 @@
 #include "TwoBit.hpp"
 #include "TwoLevelGlobal.hpp"
 #include "TwoLevelGShare.hpp"
+#include "TwoLevelGSelect.hpp"
 #include "TwoLevelLocal.hpp"
 
 Simulator::Simulator(trace_t&& trace, ParseData dat)
 	: mTrace{ std::move(trace) }
-	, mBP{ new BranchPredictorTypes::Always(false) }
+	, mBP{ nullptr }
+	, mCorrect{ 0 }
+	, mTotal{ 0 }
 {
-
+	switch (dat.predictor) {
+		using namespace BranchPredictorTypes;
+		case Predictor::ALWAYSN: mBP = new Always{ false }; break;
+		case Predictor::ALWAYST: mBP = new Always{ true }; break;
+		case Predictor::ONE_BIT: mBP = new OneBit{  }; break;
+		case Predictor::TWO_BIT: mBP = new TwoBit{  }; break;
+		case Predictor::GLOBAL:  mBP = new TwoLevelGlobal{  }; break;
+		case Predictor::GSHARE:  mBP = new TwoLevelGShare{  }; break;
+		case Predictor::GSELECT: mBP = new TwoLevelGSelect{  }; break;
+		case Predictor::LOCAL:   mBP = new TwoLevelLocal{  }; break;
+		default: throw std::invalid_argument{ "[E] " + std::to_string((int)dat.predictor) + " is not a valid predictor" };
+	}
 }
 
 Simulator::~Simulator() {

@@ -28,9 +28,20 @@ trace_t load_stream(T&& stream) {
 	return ret_val;
 }
 
+enum class Predictor {
+	ALWAYST,
+	ALWAYSN,
+	ONE_BIT,
+	TWO_BIT,
+	GLOBAL,
+	GSHARE,
+	GSELECT,
+	LOCAL
+};
+
 // This code picks a uint type that is at least X bits. For example,
 // if we run uleast_t<5> then it will return uint8_t because it is at least
-// 5 bits. If we run uleast_t<9> then it will return uint16_t because it is 
+// 5 bits. If we run uleast_t<9> then it will return uint16_t because it is
 // at least 9 bytes
 template <std::size_t A, std::size_t B>
 constexpr bool less() {
@@ -53,3 +64,7 @@ struct uleast {
 
 template <std::size_t S>
 using uleast_t = typename uleast<S>::type;
+
+void print_help();
+
+std::ostream& operator<< (std::ostream& out, Predictor op);

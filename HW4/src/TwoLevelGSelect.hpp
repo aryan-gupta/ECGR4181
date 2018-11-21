@@ -15,7 +15,7 @@ class TwoLevelGSelect : public BranchPredictor {
 	static constexpr unsigned ADDR_BITS = 5;
 
 	std::array<counter_t, 1024> mPHT;
-	ShiftRegister<5> mGHT;
+	ShiftRegister<10 - ADDR_BITS> mGHT;
 
 public:
 	virtual bool operator()(addr_t addr);

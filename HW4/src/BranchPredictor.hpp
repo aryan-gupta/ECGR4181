@@ -5,12 +5,6 @@
 
 #include "main.hpp"
 
-enum class Predictor {
-	ONE_LVL,
-	TWO_LVL_GLOBAL,
-	TWO_LVL_GSHARE,
-	TWO_LVL_LOCAL
-};
 
 namespace BranchPredictorTypes {
 // An interface for all Branch predictors. I did somthing similar to this

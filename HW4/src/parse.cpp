@@ -34,102 +34,59 @@
 // I absulutely hate hate having to make 3 entries for each flag, Im going to have to
 // find a better way to do this
 const std::unordered_map<static_string_t, Option> arg_map {
-	{ "--ucache-size",
+	{ "--predictor",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::uni_cache_size, strb2pf2ul)
-		}
-	},
-	{ "--dcache-size",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::dat_cache_size, strb2pf2ul)
-		}
-	},
-	{ "--icache-size",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::ins_cache_size, strb2pf2ul)
-		}
-	},
-
-	{ "--ublock-size",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::uni_block_size, strb2pf2ul)
-		}
-	},
-	{ "--dblock-size",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::dat_block_size, strb2pf2ul)
-		}
-	},
-	{ "--iblock-size",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::ins_block_size, strb2pf2ul)
+			get_setter(&ParseData::predictor, [](const char* str) {
+				// Ya Imma do this
+				if (std::tolower(str[6]) == 't') return Predictor::ALWAYST;
+				if (std::tolower(str[6]) == 'n') return Predictor::ALWAYSN;
+				if (std::tolower(str[0]) == 'o') return Predictor::ONE_BIT;
+				if (std::tolower(str[0]) == 't') return Predictor::TWO_BIT;
+				if (std::tolower(str[1]) == 'l') return Predictor::GLOBAL;
+				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
+				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
+				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
+				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
+			})
 		}
 	},
 
-	{ "--ureplace-policy",
+	{ "-p",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::uni_replace_policy, [](const char* str){ return str; })
-		}
-	},
-	{ "--dreplace-policy",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::dat_replace_policy, [](const char* str){ return str; })
-		}
-	},
-	{ "--ireplace-policy",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::ins_replace_policy, [](const char* str){ return str; })
-		}
-	},
-
-	{
-		"--uassociativity",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::uni_associativity, std::atol)
-		}
-	},
-	{
-		"--dassociativity",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::dat_associativity, std::atol)
-		}
-	},
-	{
-		"--iassociativity",
-		{
-			ARGUMENT,
-			get_setter(&ParseData::ins_associativity, std::atol)
+			get_setter(&ParseData::predictor, [](const char* str) { // One day I will find a better way to do this
+				// Ya Imma do this
+				if (std::tolower(str[0]) == 'a' and std::tolower(str[6]) == 't') return Predictor::ALWAYST;
+				if (std::tolower(str[0]) == 'a' and std::tolower(str[6]) == 'n') return Predictor::ALWAYSN;
+				if (std::tolower(str[0]) == 'o') return Predictor::ONE_BIT;
+				if (std::tolower(str[0]) == 't') return Predictor::TWO_BIT;
+				if (std::tolower(str[1]) == 'l') return Predictor::GLOBAL;
+				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
+				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
+				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
+				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
+			})
 		}
 	},
 
 	{ "--file",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::file, [](const char* str){ return str; })
+			get_setter(&ParseData::file, [](const char* str) { return str; })
 		}
 	},
 	{ "-f",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::file, [](const char* str){ return str; })
+			get_setter(&ParseData::file, [](const char* str) { return str; })
 		}
 	},
 
 	{ "-",
 		{
 			SWITCH,
-			get_setter(&ParseData::use_stdin, [](const char* str){ return true; })
+			get_setter(&ParseData::use_stdin, [](const char* str) { return true; })
 		}
 	},
 };
@@ -160,8 +117,6 @@ unsigned long strb2pf2ul(static_string_t str) {
 
 ParseData parse(const_cstr_array_t args, int argn) {
 	ParseData ret{	};
-	ret.uni = true;
-	ret.uni_cache_size = 33; // cache_size must be multiple of 2
 
 	for (int i = 1; i < argn; ++i) {
 		static_string_t str = args[i];
@@ -253,18 +208,6 @@ ParseData parse(const_cstr_array_t args, int argn) {
 			throw bad_prgm_argument{ concact("[E] Bad argument: ", str) };
 		}
 	}
-
-	if (ret.uni_cache_size == 33) {
-		ret.uni = false;
-	}
-
-	// ret.file = "ECGR4181/HW1/project/trace.din";
-	// ret.uni = true;
-	// ret.uni_replace_policy = "FIFO";
-	// ret.uni_cache_size = 32 * 1024;
-	// ret.uni_block_size = 128;
-	// ret.uni_associativity = 2;
-	// ret.use_stdin = false;
 
 	return ret;
 }

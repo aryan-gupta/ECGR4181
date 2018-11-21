@@ -13,6 +13,8 @@
 #include <functional>
 #include <stdexcept>
 
+#include "main.hpp"
+
 #if __cpp_lib_string_view
 	#include <string_view>
 	using static_string_t = std::string_view;
@@ -48,21 +50,7 @@ std::string concact(T a, T b, R... c) {
 struct ParseData {
 	static_string_t file;
 
-	bool            uni;
-	static_string_t uni_replace_policy;
-	uint32_t        uni_cache_size;
-	uint32_t        uni_block_size;
-	uint8_t         uni_associativity;
-
-	static_string_t dat_replace_policy;
-	uint32_t        dat_cache_size;
-	uint32_t        dat_block_size;
-	uint8_t         dat_associativity;
-
-	static_string_t ins_replace_policy;
-	uint32_t        ins_cache_size;
-	uint32_t        ins_block_size;
-	uint8_t         ins_associativity;
+	Predictor predictor;
 
 	bool            use_stdin;
 };
