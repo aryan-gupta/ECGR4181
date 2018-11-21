@@ -10,9 +10,9 @@
 namespace BranchPredictorTypes {
 
 class TwoLevelLocal : public BranchPredictor {
-	using counter_t = BitCounter<2>;
+	using counter_t = BitCounter<gBitCounterSize>;
 	using register_t = ShiftRegister<10>;
-	
+
 	std::array<counter_t, 1024> mPHT;
 	std::array<register_t, 128> mLHR;
 

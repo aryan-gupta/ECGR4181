@@ -11,6 +11,7 @@ using trace_t = std::vector<std::pair<addr_t, bool>>;
 using ratio_t = std::pair<int, int>;
 
 constexpr unsigned gSigBits = 10;
+constexpr unsigned gBitCounterSize = 2;
 
 template <typename T, typename = std::enable_if_t<std::is_base_of<std::istream, typename std::decay_t<T>>::value>>
 trace_t load_stream(T&& stream) {
@@ -36,7 +37,8 @@ enum class Predictor {
 	GLOBAL,
 	GSHARE,
 	GSELECT,
-	LOCAL
+	LOCAL,
+	CUSTOM
 };
 
 // This code picks a uint type that is at least X bits. For example,

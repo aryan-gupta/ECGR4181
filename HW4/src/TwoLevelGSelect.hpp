@@ -10,7 +10,7 @@
 namespace BranchPredictorTypes {
 
 class TwoLevelGSelect : public BranchPredictor {
-	using counter_t = BitCounter<2>;
+	using counter_t = BitCounter<gBitCounterSize>;
 
 	static constexpr unsigned ADDR_BITS = 5;
 

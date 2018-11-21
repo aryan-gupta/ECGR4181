@@ -8,7 +8,7 @@
 namespace BranchPredictorTypes {
 
 class TwoLevelGlobal : public BranchPredictor {
-	using counter_t = BitCounter<2>;
+	using counter_t = BitCounter<gBitCounterSize>;
 	std::array<counter_t, 1024> mPHT;
 	ShiftRegister<10> mGHT;
 

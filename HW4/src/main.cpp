@@ -50,6 +50,7 @@ std::ostream& operator<< (std::ostream& out, Predictor op) {
 		case Predictor::GSHARE: out << "GShare"; break;
 		case Predictor::GSELECT: out << "GSelect"; break;
 		case Predictor::LOCAL: out << "Local"; break;
+		case Predictor::CUSTOM: out << "Custom"; break;
 		// So vscode is being an idiot and marking this as an error. I am severly bothered by the red swigly line
 		// Im going to have to go the long route
 		default: throw std::invalid_argument{ "[E] " + std::to_string((int)op) + " is not a valid predictor" };

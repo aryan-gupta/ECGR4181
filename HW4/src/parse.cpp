@@ -47,6 +47,7 @@ const std::unordered_map<static_string_t, Option> arg_map {
 				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
 				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
 				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
+				if (std::tolower(str[0]) == 'c') return Predictor::CUSTOM;
 				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
 			})
 		}
@@ -65,6 +66,7 @@ const std::unordered_map<static_string_t, Option> arg_map {
 				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
 				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
 				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
+				if (std::tolower(str[0]) == 'c') return Predictor::CUSTOM;
 				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
 			})
 		}

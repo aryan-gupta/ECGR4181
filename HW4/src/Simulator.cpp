@@ -11,6 +11,7 @@
 #include "TwoLevelGShare.hpp"
 #include "TwoLevelGSelect.hpp"
 #include "TwoLevelLocal.hpp"
+#include "Custom.hpp"
 
 Simulator::Simulator(trace_t&& trace, ParseData dat)
 	: mTrace{ std::move(trace) }
@@ -28,6 +29,7 @@ Simulator::Simulator(trace_t&& trace, ParseData dat)
 		case Predictor::GSHARE:  mBP = new TwoLevelGShare{  }; break;
 		case Predictor::GSELECT: mBP = new TwoLevelGSelect{  }; break;
 		case Predictor::LOCAL:   mBP = new TwoLevelLocal{  }; break;
+		case Predictor::CUSTOM:  mBP = new Custom{  }; break;
 		default: throw std::invalid_argument{ "[E] " + std::to_string((int)dat.predictor) + " is not a valid predictor" };
 	}
 }
