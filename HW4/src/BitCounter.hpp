@@ -7,12 +7,6 @@
 
 #include "main.hpp"
 
-// std::pow is not yet constexpr
-template <typename T, typename U, typename = std::enable_if_t<std::is_integral<U>::value>>
-constexpr auto pow(T b, U e) -> T {
-	return (e == 0)? 1 : b * pow(b, e - 1);
-}
-
 // A simple bit counter. Counts up and down from 0 to the max (2 ^ B). There is probs a way
 // to remove the typename T but Im trying to get this working. Will try if I get time. The
 // Counter does not look, therefore, doing ++BitCounter{ mSize - 1 } will do nothing. Essentally,

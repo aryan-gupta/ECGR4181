@@ -10,8 +10,11 @@ using addr_t = uint32_t; // type for storing addresses
 using trace_t = std::vector<std::pair<addr_t, bool>>;
 using ratio_t = std::pair<int, int>;
 
-constexpr unsigned gSigBits = 10;
-constexpr unsigned gBitCounterSize = 2;
+constexpr unsigned BIT_CNT = 2;   // BIT COUNTER BITS
+constexpr unsigned SIG_BITS = 9; // ADDRESS SIGNIFICANT BITS
+constexpr unsigned LCO_BITS = 2; // ADDRESS LOW CUTOFF
+constexpr unsigned SFT_BITS = 11; // SHIFT REGISTER BITS
+
 
 template <typename T, typename = std::enable_if_t<std::is_base_of<std::istream, typename std::decay_t<T>>::value>>
 trace_t load_stream(T&& stream) {
@@ -63,6 +66,12 @@ struct uleast {
 			>
 		>;
 };
+
+// std::pow is not yet constexpr
+template <typename T, typename U, typename = std::enable_if_t<std::is_integral<U>::value>>
+constexpr auto pow(T b, U e) -> T {
+	return (e == 0)? 1 : b * pow(b, e - 1);
+}
 
 template <std::size_t S>
 using uleast_t = typename uleast<S>::type;

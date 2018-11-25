@@ -15,11 +15,12 @@ namespace BranchPredictorTypes {
 class BranchPredictor {
 protected:
 	// returns the significant bits of an address
-	template <std::size_t B = 10>
+	template <std::size_t B = SIG_BITS, std::size_t L = LCO_BITS>
 	static constexpr addr_t get_sbits(addr_t addr) {
 		// get number of bits in addr_t and subtract 10, this will give us the amount to shift
 		// right to get a mask.
 		constexpr addr_t mask = std::numeric_limits<addr_t>::max() >> ((sizeof(addr_t) * 8) - B);
+		addr >>= L;
 		return addr bitand mask;
 	}
 

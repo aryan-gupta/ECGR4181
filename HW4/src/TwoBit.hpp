@@ -10,8 +10,8 @@
 namespace BranchPredictorTypes {
 
 class TwoBit : public BranchPredictor {
-	using counter_t = BitCounter<gBitCounterSize>;
-	std::array<counter_t, 1024> mPHT;
+	using counter_t = BitCounter<BIT_CNT>;
+	std::array<counter_t, pow(2, SIG_BITS)> mPHT;
 
 public:
 	virtual bool operator()(addr_t addr);

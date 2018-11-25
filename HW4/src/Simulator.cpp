@@ -44,6 +44,10 @@ void Simulator::operator()() {
 	for (auto& p : mTrace) {
 		++mTotal;
 
+		// if (mTotal % 10000 == 0) {
+		// 	std::cout << mCorrect << "\t" << mTotal << "\t" << (double(mCorrect) / mTotal) << std::endl;
+		// }
+
 		bool guess = bp(p.first);
 		bp(p.first, p.second, guess);
 

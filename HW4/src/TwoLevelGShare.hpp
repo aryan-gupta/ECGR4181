@@ -10,9 +10,9 @@
 namespace BranchPredictorTypes {
 
 class TwoLevelGShare : public BranchPredictor {
-	using counter_t = BitCounter<gBitCounterSize>;
-	std::array<counter_t, 1024> mPHT;
-	ShiftRegister<10> mGHT;
+	using counter_t = BitCounter<BIT_CNT>;
+	std::array<counter_t, SFT_BITS> mPHT;
+	ShiftRegister<SFT_BITS> mGHT;
 
 public:
 	virtual bool operator()(addr_t addr);

@@ -17,8 +17,8 @@ class Always : public BranchPredictor {
 public:
 	Always(bool taken);
 
-	virtual bool operator()(addr_t addr);
-	virtual void operator()(addr_t addr, bool taken, bool guess);
+	virtual bool operator()(addr_t);
+	virtual void operator()(addr_t, bool, bool);
 };
 
 }

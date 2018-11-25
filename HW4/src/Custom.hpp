@@ -15,16 +15,16 @@ namespace BranchPredictorTypes {
 
 // I dont like the naming scheme, too generic
 class Custom : public BranchPredictor {
-	using counter_t = BitCounter<gBitCounterSize>;
-	using register_t = ShiftRegister<10>;
-	using bitarray_t = std::array<counter_t, 1024>;
+	using counter_t = BitCounter<BIT_CNT>;
+	using register_t = ShiftRegister<SFT_BITS>;
+	using bitarray_t = std::array<counter_t, pow(2, SFT_BITS)>;
 
 	register_t mGHT;
-	std::array<bitarray_t, 1024> mLHR;
+	std::array<bitarray_t, pow(2, SIG_BITS)> mLHR;
 
 public:
 	virtual bool operator()(addr_t addr);
-	virtual void operator()(addr_t addr, bool taken, bool guess);
+	virtual void operator()(addr_t addr, bool taken, bool);
 };
 
 }
