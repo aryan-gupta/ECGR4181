@@ -1,0 +1,18 @@
+
+Dear Sniper downloader, 
+
+Here are your download instructions for the Sniper Multi-core Simulator. 
+
+For use with GIT, clone our repository from the following directory: 
+$ git clone http://snipersim.org/download/1e2b76e58fb5bfad/git/sniper.git 
+
+To download Sniper, use the following link or command: 
+http://snipersim.org/download/1e2b76e58fb5bfad/packages/sniper-latest.tgz 
+$ wget http://snipersim.org/download/1e2b76e58fb5bfad/packages/sniper-latest.tgz 
+
+If you have any questions, feel free to post them on our mailing list 
+http://groups.google.com/group/snipersim 
+or visit our Frequently Asked Questions page 
+http://snipersim.org/w/Frequently_Asked_Questions 
+
+The Sniper Simulator Team 
