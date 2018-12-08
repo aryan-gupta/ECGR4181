@@ -4,37 +4,53 @@
 #include <cstdint>
 #include <type_traits>
 #include <iostream>
-#include <cmath>
 
 #include "main.hpp"
 
-// A simple bit counter. Counts up and down from 0 to the max (2 ^ B). Converted to a runtime
-// BitCounter. The original idea was to use an array of 8bit ints but it would get complicated. 
-// So I chose to just use an max width int and leave it at that Counter does not look, therefore,
-// doing ++BitCounter{ mSize - 1 } will do nothing. Essentally, a 2 bit counter can only have values of 0, 1, 2, and 3.
+// A simple bit counter. Counts up and down from 0 to the max (2 ^ B). There is probs a way
+// to remove the typename T but Im trying to get this working. Will try if I get time. The
+// Counter does not look, therefore, doing ++BitCounter{ mSize - 1 } will do nothing. Essentally,
+// a 2 bit counter can only have values of 0, 1, 2, and 3.
+template <std::size_t B, typename T = uleast_t<B>>
 class BitCounter {
-	using base_t = uint64_t;
-	using rawval_t = uint64_t;
-
-	static constexpr unsigned MAX_BITS = (sizeof(base_t) * 8) - 1;
-
-	base_t mMax;
-	base_t mCount;
+	static constexpr std::size_t mSize = pow(2, B);
+	T mCount;
 
 public:
-	BitCounter(unsigned bits);
+	constexpr BitCounter() : mCount{ 0 } {  } // README states that it should be init as SNT
+	constexpr BitCounter(T count) : mCount{ count } {  }
 
-	BitCounter& operator++ ();
+	constexpr BitCounter& operator++ () {
+		// increment mCount and if we are at max then normalize it
+		if (++mCount == mSize) mCount = mSize - 1;
+		return *this;
+	}
 
-	BitCounter& operator-- ();
+	constexpr BitCounter& operator-- () {
+		if (mCount != 0) --mCount;
+		return *this;
+	}
 
-	BitCounter operator++ (int);
+	constexpr BitCounter operator++ (int) {
+		T orig = mCount;
+		if (++mCount == mSize) mCount = mSize - 1;
+		return BitCounter{ orig };
+	}
 
-	BitCounter operator-- (int);
+	constexpr BitCounter operator-- (int) {
+		T orig = mCount;
+		if (mCount != 0) --mCount;
+		return BitCounter{ orig };
+	}
 
 	// Im so lazy to so the other comparison operators and my compiler doesnt support <=> operator
 	// yet so, Imma do this
-	rawval_t value() const;
+	constexpr T value() const {
+		return mCount;
+	}
 
-	static std::size_t max();
+	static constexpr std::size_t max() {
+		return mSize;
+	}
+
 };
