@@ -15,11 +15,11 @@ ShiftRegister::ShiftRegister(const ShiftRegister& clone)
 	: ShiftRegister{ clone.mImpl->bits(), clone.mImpl->value() } {  }
 
 bool ShiftRegister::operator>> (bool in) {
-	return (*mImpl) << in;
+	return (*mImpl) >> in;
 }
 
 bool ShiftRegister::operator<< (bool in) {
-	return (*mImpl) >> in;
+	return (*mImpl) << in;
 }
 
 uint64_t ShiftRegister::value() {

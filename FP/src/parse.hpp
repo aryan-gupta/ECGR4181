@@ -111,7 +111,7 @@ using const_cstr_array_t = char const* const* const; // const pointer to a const
 extern "C" {
 #endif
 
-ParseData parse(const_cstr_array_t args, int argn);
+void parse(ParseData& ret, int argn, const_cstr_array_t args);
 
 #ifdef PYTHON_API
 }

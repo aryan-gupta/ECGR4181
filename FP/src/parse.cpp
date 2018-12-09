@@ -164,9 +164,7 @@ unsigned long strb2pf2ul(static_string_t str) {
 	return base * mul;
 }
 
-ParseData parse(const_cstr_array_t args, int argn) {
-	ParseData ret{	};
-
+void parse(ParseData& ret, int argn, const_cstr_array_t args) {
 	for (int i = 1; i < argn; ++i) {
 		static_string_t str = args[i];
 		auto short_arg_loc = arg_map.find( static_string_t{ str.data(), 2 } );
@@ -257,6 +255,4 @@ ParseData parse(const_cstr_array_t args, int argn) {
 			throw bad_prgm_argument{ concact("[E] Bad argument: ", str) };
 		}
 	}
-
-	return ret;
 }

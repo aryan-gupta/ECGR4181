@@ -31,10 +31,22 @@ trace_t load_stream(T&& stream) {
 }
 
 int main(int argn, char** argv) {
-	ParseData dat;
+	ParseData dat {
+		.file = "project/branch-trace-gcc.trace",
+		.predictor = Predictor::ALWAYST,
+		.saturation_bits = 2,
+		.significant_bits = 10,
+		.sig_lco_bits = 0,
+		.shift_reg_bits = 10,
+		.lhr_bits = 7,
+		.addr_bits = 5,
+
+		.use_stdin = false
+	};
+
 	try {
 		// parse through the command line arguments and return our arguments
-		dat = parse(argv, argn); // Backwards I know
+		parse(dat, argn, argv);
 	} catch (bad_prgm_argument& e) {
 		std::cout << e.what() << std::endl;
 		print_help();
@@ -45,14 +57,23 @@ int main(int argn, char** argv) {
 	LCO_BITS = dat.sig_lco_bits;
 
 	std::cout << "Running branch predictor simulation using " << dat.predictor << " predictor with file: " << dat.file << std::endl;
+	std::cout << ".file = " << dat.file << std::endl;
+	std::cout << ".predictor = " << dat.predictor << std::endl;
+	std::cout << ".saturation_bits = " << dat.saturation_bits << std::endl;
+	std::cout << ".significant_bits = " << dat.significant_bits << std::endl;
+	std::cout << ".sig_lco_bits = " << dat.sig_lco_bits << std::endl;
+	std::cout << ".shift_reg_bits = " << dat.shift_reg_bits << std::endl;
+	std::cout << ".lhr_bits = " << dat.lhr_bits << std::endl;
+	std::cout << ".addr_bits = " << dat.addr_bits << std::endl;
+	std::cout << ".use_stdin = " << std::boolalpha << dat.use_stdin << std::noboolalpha << std::endl;
 
 	// Do we want to start parsing from a file or stdin (this allows us to combine `cat <file> | ./prgm.out [...]' and
 	// `./prgm.out -f<file>')
 	trace_t trace;
-	if (false) {
+	if (dat.use_stdin) {
 		trace = load_stream(std::cin);
 	} else {
-		trace = load_stream(std::ifstream{ std::string{ "./project/branch-trace-gcc.trace" } }); // @TODO soft code this once we get parsing correct
+		trace = load_stream(std::ifstream{ std::string{ dat.file } }); // @TODO soft code this once we get parsing correct
 	}
 
 	// create our simulator using parsed trace file and our command line arguments

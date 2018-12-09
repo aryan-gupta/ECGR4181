@@ -15,7 +15,7 @@ class TwoLevelGSelect : public BranchPredictor {
 	unsigned mAddrBits;
 
 public:
-	TwoLevelGSelect(unsigned shift, unsigned sat, unsigned addr);
+	TwoLevelGSelect(unsigned pht, unsigned sat, unsigned addr);
 
 	virtual bool operator()(addr_t addr);
 	virtual void operator()(addr_t addr, bool taken, bool guess);

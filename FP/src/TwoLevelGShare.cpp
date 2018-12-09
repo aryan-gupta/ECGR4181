@@ -5,7 +5,7 @@
 #include "TwoLevelGShare.hpp"
 
 BranchPredictorTypes::TwoLevelGShare::TwoLevelGShare(unsigned shift, unsigned sat)
-	: mPHT{ (unsigned)std::pow(2, shift), BitCounter{ sat } }
+	: mPHT( (unsigned)std::pow(2, shift), BitCounter{ sat } )
 	, mGHT{ shift }
 	{  }
 

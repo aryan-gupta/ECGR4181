@@ -4,7 +4,7 @@
 #include "TwoBit.hpp"
 
 BranchPredictorTypes::TwoBit::TwoBit(unsigned pht_bits, unsigned sat_bits)
-	: mPHT{ (unsigned)std::pow(2, pht_bits), BitCounter{ sat_bits } }
+	: mPHT( (unsigned)std::pow(2, pht_bits), BitCounter{ sat_bits } )
 	{  }
 
 bool BranchPredictorTypes::TwoBit::operator()(addr_t addr) {

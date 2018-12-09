@@ -5,8 +5,9 @@
 #include "TwoLevelLocal.hpp"
 
 BranchPredictorTypes::TwoLevelLocal::TwoLevelLocal(unsigned sft, unsigned sat, unsigned lhr)
-	: mPHT{ (unsigned)std::pow(2, sft), BitCounter{ sat } }
-	, mLHR{ (unsigned)std::pow(2, lhr), ShiftRegister{ sft } }
+	: mPHT( (unsigned)std::pow(2, sft), BitCounter{ sat } )
+	, mLHR( (unsigned)std::pow(2, lhr), ShiftRegister{ sft } )
+	, mLHRBits{ lhr }
 	{  }
 
 bool BranchPredictorTypes::TwoLevelLocal::operator()(addr_t addr) {
@@ -21,5 +22,5 @@ void BranchPredictorTypes::TwoLevelLocal::operator()(addr_t addr, bool taken, bo
 	} else {
 		--mPHT[idx];
 	}
-	mLHR[idx] << taken;
+	mLHR[get_sbits(addr, mLHRBits)] << taken;
 }

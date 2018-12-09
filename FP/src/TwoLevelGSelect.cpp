@@ -4,11 +4,11 @@
 #include "main.hpp"
 #include "TwoLevelGSelect.hpp"
 
-BranchPredictorTypes::TwoLevelGSelect::TwoLevelGSelect(unsigned shift, unsigned sat, unsigned addr)
-	: mPHT{ (unsigned)std::pow(2, shift + addr), BitCounter{ sat } }
-	, mGHT{ shift } {
-
-}
+BranchPredictorTypes::TwoLevelGSelect::TwoLevelGSelect(unsigned pht, unsigned sat, unsigned addr)
+	: mPHT( (unsigned)std::pow(2, pht), BitCounter{ sat } )
+	, mGHT{ pht - addr }
+	, mAddrBits{ addr }
+	{  }
 
 bool BranchPredictorTypes::TwoLevelGSelect::operator()(addr_t addr) {
 	addr_t idx = (get_sbits(addr, mAddrBits) << mAddrBits) +  mGHT.value();

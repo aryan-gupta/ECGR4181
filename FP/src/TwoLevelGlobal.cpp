@@ -6,7 +6,7 @@
 
 
 BranchPredictorTypes::TwoLevelGlobal::TwoLevelGlobal(unsigned sft_bits, unsigned sat_bits)
-	: mPHT{ (unsigned)std::pow(2, sft_bits), BitCounter{ sat_bits } }
+	: mPHT( (unsigned)std::pow(2, sft_bits), BitCounter{ sat_bits } )
 	, mGHT{ sft_bits } {  }
 
 bool BranchPredictorTypes::TwoLevelGlobal::operator()(addr_t addr) {
