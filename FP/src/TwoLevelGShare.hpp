@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 
 #include "BranchPredictor.hpp"
 #include "BitCounter.hpp"
@@ -10,11 +10,12 @@
 namespace BranchPredictorTypes {
 
 class TwoLevelGShare : public BranchPredictor {
-	using counter_t = BitCounter<BIT_CNT>;
-	std::array<counter_t, SFT_BITS> mPHT;
-	ShiftRegister<SFT_BITS> mGHT;
+	std::vector<BitCounter> mPHT;
+	ShiftRegister mGHT;
 
 public:
+	TwoLevelGShare(unsigned shift, unsigned sat);
+
 	virtual bool operator()(addr_t addr);
 	virtual void operator()(addr_t addr, bool taken, bool guess);
 };

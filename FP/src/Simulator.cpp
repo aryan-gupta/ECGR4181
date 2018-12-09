@@ -11,7 +11,6 @@
 #include "TwoLevelGShare.hpp"
 #include "TwoLevelGSelect.hpp"
 #include "TwoLevelLocal.hpp"
-#include "Custom.hpp"
 
 Simulator::Simulator(trace_t&& trace, ParseData dat)
 	: mTrace{ std::move(trace) }
@@ -23,13 +22,12 @@ Simulator::Simulator(trace_t&& trace, ParseData dat)
 		using namespace BranchPredictorTypes;
 		case Predictor::ALWAYSN: mBP = new Always{ false }; break;
 		case Predictor::ALWAYST: mBP = new Always{ true }; break;
-		case Predictor::ONE_BIT: mBP = new OneBit{  }; break;
-		case Predictor::TWO_BIT: mBP = new TwoBit{  }; break;
-		case Predictor::GLOBAL:  mBP = new TwoLevelGlobal{  }; break;
-		case Predictor::GSHARE:  mBP = new TwoLevelGShare{  }; break;
-		case Predictor::GSELECT: mBP = new TwoLevelGSelect{  }; break;
-		case Predictor::LOCAL:   mBP = new TwoLevelLocal{  }; break;
-		case Predictor::CUSTOM:  mBP = new Custom{  }; break;
+		case Predictor::ONE_BIT: mBP = new OneBit{ dat.shift_reg_bits }; break;
+		case Predictor::TWO_BIT: mBP = new TwoBit{ dat.shift_reg_bits, dat.saturation_bits }; break;
+		case Predictor::GLOBAL:  mBP = new TwoLevelGlobal{ dat.shift_reg_bits, dat.saturation_bits }; break;
+		case Predictor::GSHARE:  mBP = new TwoLevelGShare{ dat.shift_reg_bits, dat.saturation_bits }; break;
+		case Predictor::GSELECT: mBP = new TwoLevelGSelect{ dat.shift_reg_bits, dat.saturation_bits, dat.addr_bits }; break;
+		case Predictor::LOCAL:   mBP = new TwoLevelLocal{ dat.shift_reg_bits, dat.saturation_bits, dat.lhr_bits }; break;
 		default: throw std::invalid_argument{ "[E] " + std::to_string((int)dat.predictor) + " is not a valid predictor" };
 	}
 }

@@ -13,8 +13,6 @@
 #include <functional>
 #include <stdexcept>
 
-#include "main.hpp"
-
 #if __cpp_lib_string_view
 	#include <string_view>
 	using static_string_t = std::string_view;
@@ -22,6 +20,8 @@
 	#warning "`__cpp_lib_string_view' not supported, falling back to `std::string'"
 	using static_string_t = std::string;
 #endif
+
+#include "main.hpp"
 
 /// This function concact multiple strings together
 // Fold expressions are c++17 so I need feature test macros
@@ -51,6 +51,12 @@ struct ParseData {
 	static_string_t file;
 
 	Predictor predictor;
+	unsigned saturation_bits;
+	unsigned significant_bits;
+	unsigned sig_lco_bits;
+	unsigned shift_reg_bits;
+	unsigned lhr_bits;
+	unsigned addr_bits;
 
 	bool            use_stdin;
 };

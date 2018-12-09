@@ -33,6 +33,14 @@
 
 // I absulutely hate hate having to make 3 entries for each flag, Im going to have to
 // find a better way to do this
+
+/*
+
+constexpr unsigned BIT_CNT = 2;   // BIT COUNTER BITS
+constexpr unsigned SIG_BITS = 9; // ADDRESS SIGNIFICANT BITS
+constexpr unsigned LCO_BITS = 2; // ADDRESS LOW CUTOFF
+constexpr unsigned SFT_BITS = 11; // SHIFT REGISTER BITS
+*/
 const std::unordered_map<static_string_t, Option> arg_map {
 	{ "--predictor",
 		{
@@ -47,12 +55,10 @@ const std::unordered_map<static_string_t, Option> arg_map {
 				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
 				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
 				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
-				if (std::tolower(str[0]) == 'c') return Predictor::CUSTOM;
 				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
 			})
 		}
 	},
-
 	{ "-p",
 		{
 			ARGUMENT,
@@ -66,9 +72,50 @@ const std::unordered_map<static_string_t, Option> arg_map {
 				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
 				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
 				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
-				if (std::tolower(str[0]) == 'c') return Predictor::CUSTOM;
 				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
 			})
+		}
+	},
+
+	{ "--sat-bits",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::saturation_bits, strb2pf2ul)
+		}
+	},
+
+	{ "--sig-bits",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::significant_bits, strb2pf2ul)
+		}
+	},
+
+	{ "--sig-lco-bits",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::sig_lco_bits, strb2pf2ul)
+		}
+	},
+
+	{ "--shiftreg-bits",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::shift_reg_bits, strb2pf2ul)
+		}
+	},
+
+	{ "--lhr-bits",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::lhr_bits, strb2pf2ul)
+		}
+	},
+
+	{ "--addr-bits",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::addr_bits, strb2pf2ul)
 		}
 	},
 

@@ -10,27 +10,8 @@ using addr_t = uint32_t; // type for storing addresses
 using trace_t = std::vector<std::pair<addr_t, bool>>;
 using ratio_t = std::pair<int, int>;
 
-constexpr unsigned BIT_CNT = 2;   // BIT COUNTER BITS
-constexpr unsigned SIG_BITS = 9; // ADDRESS SIGNIFICANT BITS
-constexpr unsigned LCO_BITS = 2; // ADDRESS LOW CUTOFF
-constexpr unsigned SFT_BITS = 11; // SHIFT REGISTER BITS
-
-
-template <typename T, typename = std::enable_if_t<std::is_base_of<std::istream, typename std::decay_t<T>>::value>>
-trace_t load_stream(T&& stream) {
-	if (!stream) throw std::invalid_argument{ "[E] stream cannot be empty" };
-
-	trace_t ret_val;
-
-	for (std::string line; std::getline(stream, line); ) {
-		addr_t addr = std::stoll(line);
-		bool taken = (line[line.size() - 1] == 'T')? true : false;
-
-		ret_val.push_back({ addr, taken });
-	}
-
-	return ret_val;
-}
+extern unsigned SIG_BITS; // ADDRESS SIGNIFICANT BITS
+extern unsigned LCO_BITS; // ADDRESS LOW CUTOFF
 
 enum class Predictor {
 	ALWAYST,
@@ -40,8 +21,7 @@ enum class Predictor {
 	GLOBAL,
 	GSHARE,
 	GSELECT,
-	LOCAL,
-	CUSTOM
+	LOCAL
 };
 
 // This code picks a uint type that is at least X bits. For example,
@@ -79,3 +59,5 @@ using uleast_t = typename uleast<S>::type;
 void print_help();
 
 std::ostream& operator<< (std::ostream& out, Predictor op);
+
+addr_t get_sbits(addr_t addr, unsigned sig = SIG_BITS, unsigned lco = LCO_BITS);
