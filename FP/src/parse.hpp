@@ -51,6 +51,7 @@ struct ParseData {
 	static_string_t file;
 
 	Predictor predictor;
+	Predictor agree_base;
 	unsigned saturation_bits;
 	unsigned significant_bits;
 	unsigned sig_lco_bits;
@@ -105,6 +106,8 @@ unsigned long strb2pf2ul(static_string_t str);
 extern const std::unordered_map<static_string_t, Option> arg_map;
 
 using const_cstr_array_t = char const* const* const; // const pointer to a const pointer (array) to const char
+
+Predictor str2bp(const char* str);
 
 // Python interface
 #ifdef PYTHON_API

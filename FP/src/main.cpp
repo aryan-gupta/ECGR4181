@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 #include "main.hpp"
@@ -14,6 +15,15 @@
 unsigned SIG_BITS;
 unsigned LCO_BITS;
 
+std::vector<std::string> split_line(const std::string& str, char delim = ' ') {
+	std::vector<std::string> ret;
+	std::stringstream ss(str);
+	std::string token;
+	while (std::getline(ss, token, delim))
+		ret.push_back(token);
+	return ret;
+}
+
 template <typename T, typename = std::enable_if_t<std::is_base_of<std::istream, typename std::decay_t<T>>::value>>
 trace_t load_stream(T&& stream) {
 	if (!stream) throw std::invalid_argument{ "[E] stream cannot be empty" };
@@ -21,10 +31,14 @@ trace_t load_stream(T&& stream) {
 	trace_t ret_val;
 
 	for (std::string line; std::getline(stream, line); ) {
-		addr_t addr = std::stoll(line);
-		bool taken = (line[line.size() - 1] == 'T')? true : false;
+		auto split = split_line(line);
 
-		ret_val.push_back({ addr, taken });
+		addr_t addr = std::stoll(split[0], nullptr, 16);
+		bool taken = (split[1] == "T")? true : false;
+		addr_t target = std::stoll(split[2], nullptr, 16);
+		bool bias = split[3] == "0";
+
+		ret_val.push_back({ addr, taken, target, { bias } } );
 	}
 
 	return ret_val;
@@ -34,6 +48,7 @@ int main(int argn, char** argv) {
 	ParseData dat {
 		.file = "project/branch-trace-gcc.trace",
 		.predictor = Predictor::ALWAYST,
+		.agree_base = Predictor::ALWAYST,
 		.saturation_bits = 2,
 		.significant_bits = 10,
 		.sig_lco_bits = 0,
@@ -59,6 +74,7 @@ int main(int argn, char** argv) {
 	std::cout << "Running branch predictor simulation using " << dat.predictor << " predictor with file: " << dat.file << std::endl;
 	std::cout << ".file = " << dat.file << std::endl;
 	std::cout << ".predictor = " << dat.predictor << std::endl;
+	std::cout << ".agree_base = " << dat.agree_base << std::endl;
 	std::cout << ".saturation_bits = " << dat.saturation_bits << std::endl;
 	std::cout << ".significant_bits = " << dat.significant_bits << std::endl;
 	std::cout << ".sig_lco_bits = " << dat.sig_lco_bits << std::endl;
@@ -94,14 +110,18 @@ void print_help() {
 std::ostream& operator<< (std::ostream& out, Predictor op) {
 	// Convert an enum to a text object
 	switch (op) {
-		case Predictor::ALWAYST: out << "Always Taken"; break;
-		case Predictor::ALWAYSN: out << "Always Not Taken"; break;
-		case Predictor::ONE_BIT: out << "One Bit"; break;
-		case Predictor::TWO_BIT: out << "Two Bit"; break;
-		case Predictor::GLOBAL: out << "Global"; break;
-		case Predictor::GSHARE: out << "GShare"; break;
-		case Predictor::GSELECT: out << "GSelect"; break;
-		case Predictor::LOCAL: out << "Local"; break;
+		case Predictor::ALWAYST:    out << "Always Taken"; break;
+		case Predictor::ALWAYSN:    out << "Always Not Taken"; break;
+		case Predictor::ONE_BIT:    out << "One Bit"; break;
+		case Predictor::TWO_BIT:    out << "Two Bit"; break;
+		case Predictor::GLOBAL:     out << "Global"; break;
+		case Predictor::GSHARE:     out << "GShare"; break;
+		case Predictor::GSELECT:    out << "GSelect"; break;
+		case Predictor::LOCAL:      out << "Local"; break;
+		case Predictor::BTFN:       out << "Backwards Taken Forwards Not Taken"; break;
+		case Predictor::AGREEBTFN:  out << "Agree Backwards Biased Forwards Not Biased"; break;
+		case Predictor::AGREEFIRST: out << "Agree Use First branch prediction"; break;
+		case Predictor::AGREEISA:   out << "Agree Use ISA Extension"; break;
 		// So vscode is being an idiot and marking this as an error. I am severly bothered by the red swigly line
 		// Im going to have to go the long route
 		default: throw std::invalid_argument{ "[E] " + std::to_string((int)op) + " is not a valid predictor" };

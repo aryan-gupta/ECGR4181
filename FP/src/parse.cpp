@@ -45,35 +45,13 @@ const std::unordered_map<static_string_t, Option> arg_map {
 	{ "--predictor",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::predictor, [](const char* str) {
-				// Ya Imma do this
-				if (std::tolower(str[6]) == 't') return Predictor::ALWAYST;
-				if (std::tolower(str[6]) == 'n') return Predictor::ALWAYSN;
-				if (std::tolower(str[0]) == 'o') return Predictor::ONE_BIT;
-				if (std::tolower(str[0]) == 't') return Predictor::TWO_BIT;
-				if (std::tolower(str[1]) == 'l') return Predictor::GLOBAL;
-				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
-				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
-				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
-				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
-			})
+			get_setter(&ParseData::predictor, str2bp)
 		}
 	},
 	{ "-p",
 		{
 			ARGUMENT,
-			get_setter(&ParseData::predictor, [](const char* str) { // One day I will find a better way to do this
-				// Ya Imma do this
-				if (std::tolower(str[0]) == 'a' and std::tolower(str[6]) == 't') return Predictor::ALWAYST;
-				if (std::tolower(str[0]) == 'a' and std::tolower(str[6]) == 'n') return Predictor::ALWAYSN;
-				if (std::tolower(str[0]) == 'o') return Predictor::ONE_BIT;
-				if (std::tolower(str[0]) == 't') return Predictor::TWO_BIT;
-				if (std::tolower(str[1]) == 'l') return Predictor::GLOBAL;
-				if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
-				if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
-				if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
-				throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
-			})
+			get_setter(&ParseData::predictor, str2bp)
 		}
 	},
 
@@ -116,6 +94,13 @@ const std::unordered_map<static_string_t, Option> arg_map {
 		{
 			ARGUMENT,
 			get_setter(&ParseData::addr_bits, strb2pf2ul)
+		}
+	},
+
+	{ "--agree-base",
+		{
+			ARGUMENT,
+			get_setter(&ParseData::agree_base, str2bp)
 		}
 	},
 
@@ -162,6 +147,23 @@ unsigned long strb2pf2ul(static_string_t str) {
 	}
 
 	return base * mul;
+}
+
+Predictor str2bp(const char* str) {
+	// Ya Imma do this
+	if (std::tolower(str[6]) == 't') return Predictor::ALWAYST;
+	if (std::tolower(str[6]) == 'n') return Predictor::ALWAYSN;
+	if (std::tolower(str[0]) == 'o') return Predictor::ONE_BIT;
+	if (std::tolower(str[0]) == 't') return Predictor::TWO_BIT;
+	if (std::tolower(str[1]) == 'l') return Predictor::GLOBAL;
+	if (std::tolower(str[2]) == 'h') return Predictor::GSHARE;
+	if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
+	if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
+	if (std::tolower(str[0]) == 'b') return Predictor::BTFN;
+	if (std::tolower(str[5]) == 'b') return Predictor::AGREEBTFN;
+	if (std::tolower(str[5]) == 'f') return Predictor::AGREEFIRST;
+	if (std::tolower(str[5]) == 'i') return Predictor::AGREEISA;
+	throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };
 }
 
 void parse(ParseData& ret, int argn, const_cstr_array_t args) {

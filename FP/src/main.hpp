@@ -7,11 +7,24 @@
 #include <type_traits>
 
 using addr_t = uint32_t; // type for storing addresses
-using trace_t = std::vector<std::pair<addr_t, bool>>;
 using ratio_t = std::pair<int, int>;
 
 extern unsigned SIG_BITS; // ADDRESS SIGNIFICANT BITS
 extern unsigned LCO_BITS; // ADDRESS LOW CUTOFF
+
+// Any ISA extention information
+struct Extensions {
+	bool bias;
+};
+
+struct BranchInfo {
+	addr_t address;
+	bool result;
+	addr_t target;
+	Extensions ext;
+};
+
+using trace_t = std::vector<BranchInfo>;
 
 enum class Predictor {
 	ALWAYST,
@@ -21,7 +34,11 @@ enum class Predictor {
 	GLOBAL,
 	GSHARE,
 	GSELECT,
-	LOCAL
+	LOCAL,
+	BTFN,
+	AGREEBTFN,
+	AGREEFIRST,
+	AGREEISA
 };
 
 // This code picks a uint type that is at least X bits. For example,
