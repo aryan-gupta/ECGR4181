@@ -18,7 +18,8 @@ struct BranchPredictor {
 
 	// This operator returns if we should take the branch or not take it. I takes in an
 	// address and uses whatever meathod to determine its prediction
-	virtual bool operator()(addr_t a) = 0;
+	// The b object is the target of the branch
+	virtual bool operator()(addr_t a, addr_t b, Extensions c) = 0;
 
 	// This operator updates its database depending on the actual.
 	// @param a The address of the branch

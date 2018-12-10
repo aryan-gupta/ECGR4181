@@ -7,7 +7,7 @@
 BranchPredictorTypes::OneBit::OneBit(unsigned pht_bits)
 	: mPHT( static_cast<unsigned>(std::pow(2, pht_bits)) ) {  }
 
-bool BranchPredictorTypes::OneBit::operator()(addr_t addr) {
+bool BranchPredictorTypes::OneBit::operator()(addr_t addr, addr_t, Extensions) {
 	return mPHT[get_sbits(addr)];
 }
 

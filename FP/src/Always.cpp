@@ -5,7 +5,7 @@
 
 BranchPredictorTypes::Always::Always(bool taken) : mTaken{ taken } {}
 
-bool BranchPredictorTypes::Always::operator()(addr_t) {
+bool BranchPredictorTypes::Always::operator()(addr_t, addr_t, Extensions) {
 	return mTaken;
 }
 

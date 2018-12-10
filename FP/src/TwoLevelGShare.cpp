@@ -9,7 +9,7 @@ BranchPredictorTypes::TwoLevelGShare::TwoLevelGShare(unsigned shift, unsigned sa
 	, mGHT{ shift }
 	{  }
 
-bool BranchPredictorTypes::TwoLevelGShare::operator()(addr_t addr) {
+bool BranchPredictorTypes::TwoLevelGShare::operator()(addr_t addr, addr_t, Extensions) {
 	addr_t idx = get_sbits(addr) ^ mGHT.value();
 	return mPHT[idx].value() >= (mPHT[idx].max() / 2);
 }

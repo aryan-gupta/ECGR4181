@@ -9,7 +9,7 @@ BranchPredictorTypes::TwoLevelGlobal::TwoLevelGlobal(unsigned sft_bits, unsigned
 	: mPHT( (unsigned)std::pow(2, sft_bits), BitCounter{ sat_bits } )
 	, mGHT{ sft_bits } {  }
 
-bool BranchPredictorTypes::TwoLevelGlobal::operator()(addr_t addr) {
+bool BranchPredictorTypes::TwoLevelGlobal::operator()(addr_t addr, addr_t, Extensions) {
 	addr_t idx = mGHT.value();
 	return mPHT[idx].value() >= (mPHT[idx].max() / 2);
 }

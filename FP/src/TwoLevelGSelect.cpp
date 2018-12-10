@@ -10,7 +10,7 @@ BranchPredictorTypes::TwoLevelGSelect::TwoLevelGSelect(unsigned pht, unsigned sa
 	, mAddrBits{ addr }
 	{  }
 
-bool BranchPredictorTypes::TwoLevelGSelect::operator()(addr_t addr) {
+bool BranchPredictorTypes::TwoLevelGSelect::operator()(addr_t addr, addr_t, Extensions) {
 	addr_t idx = (get_sbits(addr, mAddrBits) << mAddrBits) +  mGHT.value();
 	return mPHT[idx].value() >= (mPHT[idx].max() / 2);
 }

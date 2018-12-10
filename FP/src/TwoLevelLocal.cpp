@@ -10,7 +10,7 @@ BranchPredictorTypes::TwoLevelLocal::TwoLevelLocal(unsigned sft, unsigned sat, u
 	, mLHRBits{ lhr }
 	{  }
 
-bool BranchPredictorTypes::TwoLevelLocal::operator()(addr_t addr) {
+bool BranchPredictorTypes::TwoLevelLocal::operator()(addr_t addr, addr_t, Extensions) {
 	addr_t idx = mLHR[get_sbits(addr, mLHRBits)].value();
 	return mPHT[idx].value() >= (mPHT[idx].max() / 2);
 }
