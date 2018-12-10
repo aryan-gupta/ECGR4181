@@ -40,7 +40,8 @@
 		"ctime": "cpp",
 		"deque": "cpp",
 		"ratio": "cpp",
-		"bitset": "cpp"
+		"bitset": "cpp",
+		"string": "cpp"
 	},
 	"C_Cpp.default.cppStandard": "c++17"
 }
