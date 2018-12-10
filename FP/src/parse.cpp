@@ -151,6 +151,7 @@ unsigned long strb2pf2ul(static_string_t str) {
 
 Predictor str2bp(const char* str) {
 	// Ya Imma do this
+	if (std::tolower(str[5]) == 'b') return Predictor::AGREEBTFN;
 	if (std::tolower(str[6]) == 't') return Predictor::ALWAYST;
 	if (std::tolower(str[6]) == 'n') return Predictor::ALWAYSN;
 	if (std::tolower(str[0]) == 'o') return Predictor::ONE_BIT;
@@ -160,7 +161,6 @@ Predictor str2bp(const char* str) {
 	if (std::tolower(str[2]) == 'e') return Predictor::GSELECT;
 	if (std::tolower(str[0]) == 'l') return Predictor::LOCAL;
 	if (std::tolower(str[0]) == 'b') return Predictor::BTFN;
-	if (std::tolower(str[5]) == 'b') return Predictor::AGREEBTFN;
 	if (std::tolower(str[5]) == 'f') return Predictor::AGREEFIRST;
 	if (std::tolower(str[5]) == 'i') return Predictor::AGREEISA;
 	throw bad_prgm_argument{ concact("[E] ", str, " is not a valid predictor") };

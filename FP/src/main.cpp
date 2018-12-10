@@ -131,6 +131,8 @@ std::ostream& operator<< (std::ostream& out, Predictor op) {
 
 // returns the significant bits of an address
 addr_t get_sbits(addr_t addr, unsigned sig, unsigned lco) {
+	if (sig == 65) sig = SIG_BITS;
+	if (lco == 65) lco = LCO_BITS;
 	// get number of bits in addr_t and subtract 10, this will give us the amount to shift
 	// right to get a mask.
 	addr_t mask = std::numeric_limits<addr_t>::max() >> ((sizeof(addr_t) * 8) - sig);

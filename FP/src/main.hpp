@@ -77,4 +77,4 @@ void print_help();
 
 std::ostream& operator<< (std::ostream& out, Predictor op);
 
-addr_t get_sbits(addr_t addr, unsigned sig = SIG_BITS, unsigned lco = LCO_BITS);
+addr_t get_sbits(addr_t addr, unsigned sig = 65, unsigned lco = 65);
