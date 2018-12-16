@@ -2,6 +2,7 @@
 
 import subprocess
 import os
+from threading import Thread
 
 BaseOptions = ["GShare", "Global", "TwoBit", "Local"] # --agree-base=
 AgreeOptions = ["AgreeBTFN", "AgreeFirst", "AgreeISA"] # -p
@@ -11,7 +12,7 @@ LCOBits = "0, 7, 14" # --lco-bits
 #bin/main.out -fproject/rsync_actual_final.trace -pAgreeI --agree-base=Global
 print(os.getcwd())
 
-for base in BaseOptions:
+def mt_base_func(base):
 	for agree in AgreeOptions:
 		for sig in range(10, 17):
 			for lco in [0, 7, 14]:
@@ -22,3 +23,14 @@ for base in BaseOptions:
 				print(fname)
 				dest = open(fname , mode="w+")
 				dest.write(str(out))
+	print("done")
+
+threads = []
+for base in BaseOptions:
+	t = Thread(target=mt_base_func, args=(base, ))
+	threads.append(t)
+	t.start()
+
+while True: # dont kill parent thread
+   pass
+   
