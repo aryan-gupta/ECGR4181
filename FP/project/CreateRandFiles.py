@@ -5,7 +5,7 @@ from random import randint
 import subprocess
 
 def mk_rand_struct(num, depth):
-	if depth > 6:
+	if depth > 7:
 		return
 
 	for i in range(num):
@@ -18,7 +18,7 @@ def create_directory(dir, depth):
 	os.mkdir(dir) # create dir
 	os.chdir(dir) # go in directory
 
-	mk_rand_struct(randint(0, 25), depth)
+	mk_rand_struct(randint(0, 50), depth)
 	os.chdir("..")
 
 def create_file(fname):
@@ -27,7 +27,7 @@ def create_file(fname):
 
 
 if __name__ == '__main__':
-	os.mkdir("copy") # create our initial folder that we want to copy
+	# os.mkdir("copy") # create our initial folder that we want to copy
 	os.chdir("copy")
 
 	mk_rand_struct(randint(40, 60), 0)
