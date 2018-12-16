@@ -97,8 +97,9 @@ int main(int argn, char** argv) {
 	sim(); // run the simulation
 
 	// Print out the results
-	std::cout << sim.getResults().first << " / " << sim.getResults().second << std::endl;
-	std::cout << (double(sim.getResults().first) / sim.getResults().second) << std::endl;
+	double mispre = sim.getResults().second - sim.getResults().first;
+	std::cout << (int)mispre << " / " << sim.getResults().second << std::endl;
+	std::cout << (mispre / sim.getResults().second) << std::endl;
 
 	return 0;
 }
