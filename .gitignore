@@ -45,7 +45,6 @@
 *.fls
 *.log
 *.synctex.gz
-*.pdf
 
 # python cache
 *__pycache__*
